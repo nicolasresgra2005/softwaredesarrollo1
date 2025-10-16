@@ -1,30 +1,47 @@
 /* src/App.css */
-
-body {
+html, body, #root {
+  height: 100%;
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f7f9f4;
-  color: #333;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
 }
+
+
+.main-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  text-align: center;
+}
+
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #2e7d32;
-  color: white;
-  padding: 15px 40px;
+  color: rgb(250, 250, 250);
+  padding: 10px 20px; /* cuidado con el padding para evitar que el encabezado de la pagina se encoja*/ 
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  width: 100%;
 }
 
 .logo {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
+  font-weight: bold;
+  letter-spacing: 0.2px;
+}
+
+.highlight {
+  color: #2e7d32;
   font-weight: bold;
 }
 
 .nav {
   display: flex;
-  gap: 10px;
+  gap: 15px;
 }
 
 .nav-btn {
@@ -32,20 +49,21 @@ body {
   color: #2e7d32;
   border: none;
   border-radius: 5px;
-  padding: 8px 15px;
+  padding: 8px 18px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s ease;
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.2s;
 }
+
 
 .nav-btn:hover {
   background-color: #c8e6c9;
+  transform: scale(1.05);
 }
 
-.info-section {
-  text-align: center;
-  padding: 60px 20px;
-}
+
+
 
 .info-section h2 {
   color: #1b5e20;
@@ -60,41 +78,68 @@ body {
   line-height: 1.6;
 }
 
-.auth-page {
-  max-width: 400px;
-  margin: 60px auto;
+.auth-page,
+.info-section {
+  flex: 1; /* ocupa todo el espacio disponible */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* centra verticalmente */
+  align-items: center; /* centra horizontalmente */
+  background-color: #fefffd;
+  min-height: calc(100vh - 80px); /* evita que el header empuje hacia abajo */
+}
+
+.auth-page form {
+  width: 100%;
+  max-width: 380px;
   background: white;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  text-align: center;
-}
-
-.auth-page h2 {
-  color: #1b5e20;
-  margin-bottom: 20px;
-}
-
-.auth-form {
+  padding: 35px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
   gap: 15px;
+  align-items: center;
+}
+
+
+
+.auth-page h2 {
+  color: #1b5e20;
+  margin-bottom: 15px;
+}
+
+.auth-form {
+  width: 100%;
+  max-width: 380px;
+  background: rgb(240, 240, 240);
+  padding: 35px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
 }
 
 .auth-form input {
-  padding: 10px;
-  border-radius: 5px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
   border: 1px solid #ccc;
 }
 
+
 .auth-form button {
+  width: 100%;
   background-color: #2e7d32;
   color: white;
   border: none;
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 6px;
   font-weight: 600;
   cursor: pointer;
+  transition: background 0.3s ease;
 }
 
 .auth-form button:hover {

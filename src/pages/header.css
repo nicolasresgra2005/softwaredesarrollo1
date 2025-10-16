@@ -1,0 +1,37 @@
+.header {
+  display: flex;
+  justify-content: space-between; /* separa el logo con los botones de registro */
+  align-items: center;
+  background-color: #248b2b;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: rgb(245, 245, 245);
+  letter-spacing: 1px;
+  white-space: nowrap; /*el nowrap para hacer hacer que el logo este en una sola linea*/
+}
+
+
+.nav {
+  display: flex;
+  gap: 15px;
+}
+
+.nav-btn {
+  background-color: rgb(238, 238, 238);
+  border: none;
+  color: #2e7d32;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+  background-color: #c8e6c9;
+}

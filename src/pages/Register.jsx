@@ -1,4 +1,4 @@
-// src/pages/Register.jsx
+
 function Register() {
   return (
     <div className="auth-page">

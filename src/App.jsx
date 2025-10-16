@@ -1,27 +1,25 @@
+
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Header from "./pages/header"; //importación del header
 
 function App() {
   return (
     <Router>
-      <header className="header">
-        <h1 className="logo">AgroSense</h1>
+      {/*Encabezado*/}
+      <Header />
 
-        <nav className="nav">
-          <Link to="/" className="nav-btn">Inicio</Link>
-          <Link to="/login" className="nav-btn">Iniciar sesión</Link>
-          <Link to="/register" className="nav-btn">Registro</Link>
-        </nav>
-      </header>
-
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-      </Routes>
+      {/* Contenido rutas */}
+      <main className="main-content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </main>
     </Router>
   );
 }

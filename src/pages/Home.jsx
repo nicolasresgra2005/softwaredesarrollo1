@@ -1,12 +1,14 @@
-// src/pages/Home.jsx
+import React from "react";
+import "./Home.css";
 function Home() {
   return (
-    <main className="info-section">
-      <h2>Bienvenido a AgroSense</h2>
+    <div className="info-section">
+      <h2>Bienvenido a <span className="highlight">AgroSense</span></h2>
       <p>
-        AgroSense es una plataforma diseñada para optimizar la gestión agrícola mediante análisis inteligentes, control de recursos y monitoreo en tiempo real.
+        Una plataforma inteligente que conecta tecnología y agricultura para optimizar tus recursos,
+        monitorear tus cultivos y mejorar la producción de manera sostenible.
       </p>
-    </main>
+    </div>
   );
 }
 

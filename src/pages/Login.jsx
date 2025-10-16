@@ -1,4 +1,4 @@
-// src/pages/Login.jsx
+
 function Login() {
   return (
     <div className="auth-page">

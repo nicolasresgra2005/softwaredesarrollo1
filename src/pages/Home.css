@@ -1,0 +1,10 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  text-align: center;
+  color: #1b5e20; /**/
+  padding: 20px;
+}
