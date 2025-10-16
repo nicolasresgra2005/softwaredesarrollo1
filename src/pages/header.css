@@ -30,6 +30,7 @@
   font-weight: 600;
   text-decoration: none;
   transition: all 0.3s ease;
+  box-shadow: 8px 4px 6px rgba(0, 0, 0, 0.173), 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .nav-btn:hover {

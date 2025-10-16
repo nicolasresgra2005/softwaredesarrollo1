@@ -7,7 +7,7 @@
 
 /* Estilodocumento*/
 html, body {
-  height: 100%;
+  height: 100vh;
   width: 100%;
   font-family: "Poppins", sans-serif;
   background-color: #ffffff; /* fondo claro */
@@ -16,6 +16,7 @@ html, body {
 
 /* Asegura que el root se expanda al 100% */
 #root {
+  height: 100vh;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
