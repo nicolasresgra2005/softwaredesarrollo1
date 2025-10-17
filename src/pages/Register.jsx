@@ -25,7 +25,7 @@ function Register() {
                 <label htmlFor="">Contraseña</label>
                 <input type="password" className="login" placeholder="Contraseña" required />
               </div>
-              <button type="submit">Registrar</button>
+              <button type="submit">¡Registrarse ya!</button>
             </form>
           </div>
         </div>

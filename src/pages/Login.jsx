@@ -21,7 +21,7 @@ function Login() {
                 <label htmlFor="">Contraseña</label>
                 <input type="password" className="login" placeholder="Ingresa tu Contraseña" required />
               </div>
-              <button type="submit">Entrar</button>
+              <button type="submit">¡Entrar ya!</button>
             </form>
           </div>
         </div>
