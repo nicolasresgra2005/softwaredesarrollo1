@@ -7,11 +7,11 @@ function Register() {
       <div className="register-box">
         <h2>Registro de usuario</h2>
         <form>
-          <label>Nombre</label>
-          <input type="text" placeholder="Primer Nombre" />
+          <label>Nombres</label>
+          <input type="text" placeholder="Nombres" />
 
-          <label>Apellido</label>
-          <input type="text" placeholder="Primer Apellido" />
+          <label>Apellidos</label>
+          <input type="text" placeholder="Apellidos" />
 
           <label>Correo electrónico</label>
           <input type="email" placeholder="Correo electrónico" />
