@@ -1,6 +1,5 @@
-import React from "react";
+import React from "react"; 
 import "../pages/Register.css";
-import mujer from "../assets/mujer.jpg"; // Ajusta el nombre si tu imagen tiene otro nombre
 
 function Register() {
   return (
@@ -8,11 +7,11 @@ function Register() {
       <div className="register-box">
         <h2>Registro de usuario</h2>
         <form>
-          <label>Nombres</label>
-          <input type="text" placeholder="Nombres" />
+          <label>Nombre</label>
+          <input type="text" placeholder="Primer Nombre" />
 
-          <label>Apellidos</label>
-          <input type="text" placeholder="Apellidos" />
+          <label>Apellido</label>
+          <input type="text" placeholder="Primer Apellido" />
 
           <label>Correo electrónico</label>
           <input type="email" placeholder="Correo electrónico" />
@@ -22,10 +21,6 @@ function Register() {
 
           <button type="submit">¡Registrarse ya!</button>
         </form>
-      </div>
-
-      <div className="register-image">
-        <img src={mujer} alt="Registro" />
       </div>
     </div>
   );

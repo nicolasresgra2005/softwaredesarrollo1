@@ -1,7 +1,7 @@
 /* 🔹 Contenedor principal del login */
 .login-container {
   display: flex;
-  justify-content: flex-end; /* mover login a la derecha */
+  justify-content: center; /* mover login a la derecha */
   align-items: center;
   min-height: 100vh; /* ocupa toda la altura visible */
   width: 100%;

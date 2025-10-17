@@ -5,12 +5,12 @@
   align-items: center;
   min-height: 100vh;
   width: 100%;
-  background-image: url('../assets/Fondo.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  overflow: hidden;
+  background-image: url('../assets/FonfoR.png');
+  background-size: cover;       /* cubre toda la pantalla */
+  background-position: center;  /* centrada */
+  background-repeat: no-repeat; /* sin repetir */
+  background-attachment: fixed; /* mantiene la imagen fija */
+  overflow: hidden;             /* evita scroll innecesario */
 }
 
 /* Caja del formulario */
