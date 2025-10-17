@@ -1,0 +1,60 @@
+/* Fondo general */
+.register-container {
+  display: flex;
+  justify-content: center; /* centrado */
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  background-image: url('../assets/Fondo.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  overflow: hidden;
+}
+
+/* Caja del formulario */
+.register-box {
+  background-color: rgba(255, 255, 255, 0.9);
+  width: 380px;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+/* Título */
+.register-box h2 {
+  margin-bottom: 20px;
+  color: #2e7d32;
+}
+
+/* Formulario */
+.register-box form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Campos de entrada */
+.register-box input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+}
+
+/* Botón */
+.register-box button {
+  background-color: #2e7d32;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.register-box button:hover {
+  background-color: #1b5e20;
+}

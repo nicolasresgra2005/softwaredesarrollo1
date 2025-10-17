@@ -1,37 +1,47 @@
 .header {
   display: flex;
-  justify-content: space-between; /* separa el logo con los botones de registro */
+  justify-content: space-between;
   align-items: center;
-  background-color: #1e7914;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #16aa20;
+  color: white;
+  padding: 10px 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   width: 100%;
 }
 
+/* Texto del logo */
 .logo {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #ffffff;
-  letter-spacing: 1px;
-  white-space: nowrap; /*el nowrap para hacer hacer que el logo este en una sola linea*/
+  font-size: 1.8rem;
+  font-weight: bold;
+  letter-spacing: 0.2px;
 }
 
+/* Palabra destacada (si el logo tiene dos colores) */
+.highlight {
+  color: #2e7d32;
+  font-weight: bold;
+}
+
+/* Contenedor de botones de navegación */
 .nav {
   display: flex;
   gap: 15px;
 }
 
+/* Botones del header */
 .nav-btn {
-  background-color: rgb(238, 238, 238);
-  border: none;
+  background-color: white;
   color: #2e7d32;
-  padding: 8px 16px;
-  border-radius: 6px;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 18px;
   font-weight: 600;
+  cursor: pointer;
   text-decoration: none;
-  transition: all 0.3s ease;
-  box-shadow: 8px 4px 6px rgba(0, 0, 0, 0.173), 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s ease, transform 0.2s;
 }
 
 .nav-btn:hover {
   background-color: #c8e6c9;
+  transform: scale(1.05);
 }

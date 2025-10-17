@@ -6,7 +6,7 @@ function Home() {
     <div className="home-container">   {/* 👈 Debe llamarse igual */}
       <div className="info-section">
         <h2>
-         <h2 class="titulo">Bienvenido a AgroSense</h2>
+         <h2 class="titulo">Bienvenido a Agro-Sense</h2>
         </h2>
         <p>
           Una plataforma inteligente que combina tecnología agrícola y 
