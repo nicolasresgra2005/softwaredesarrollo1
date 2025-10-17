@@ -1,6 +1,6 @@
 import React from "react";
 import "../pages/Register.css";
-import mujer from "../assets/mujer.jpg"; // Ajusta el nombre si tu imagen tiene otro nombre
+
 
 function Register() {
   return (
@@ -25,7 +25,7 @@ function Register() {
       </div>
 
       <div className="register-image">
-        <img src={mujer} alt="Registro" />
+        
       </div>
     </div>
   );
