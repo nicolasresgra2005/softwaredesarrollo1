@@ -1,30 +1,29 @@
+import React from "react";
+import "./Login.css";
 
 function Login() {
   return (
-    <div className="auth-page">
-      <div className="auth-container">
-        <div className="auth-form-container">
-          <div className="img-container" style={{height: "100%"}}>
-            <img src="../src/assets/amigos.jpg" alt="" style={{height: "100%", width: "auto", transform: "scaleX(-1)"}} />
-          </div>
-          <div className="form-container">
-            <div className="title">
-              <h2>Iniciar sesión</h2>
-              <div className="line"></div>
-            </div>
-            <form className="auth-form">
-              <div className="input-container">
-                <label htmlFor="">Correo electr&oacute;nico</label>
-                <input type="email" className="login" placeholder="Ingresa tu Correo electrónico" required />
-              </div>
-              <div className="input-container">
-                <label htmlFor="">Contraseña</label>
-                <input type="password" className="login" placeholder="Ingresa tu Contraseña" required />
-              </div>
-              <button type="submit">Entrar</button>
-            </form>
-          </div>
-        </div>
+    <div className="login-page">
+      <div className="login-left"></div> {/* Imagen o fondo a la izquierda */}
+      <div className="login-container">
+        <h2>Iniciar sesión</h2>
+        <form className="login-form">
+          <label>Correo electrónico</label>
+          <input
+            type="email"
+            placeholder="Ingresa tu correo electrónico"
+            required
+          />
+
+          <label>Contraseña</label>
+          <input
+            type="password"
+            placeholder="Ingresa tu contraseña"
+            required
+          />
+
+          <button type="submit">Entrar</button>
+        </form>
       </div>
     </div>
   );

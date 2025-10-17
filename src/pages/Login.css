@@ -1,0 +1,110 @@
+/* Estructura principal */
+.login-page {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  background-image: url('../assets/FondoL.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Lado izquierdo con la imagen */
+.login-left {
+  flex: 1;
+  background-image: url('../assets/amigos.jpg'); /* Ajusta nombre si es otra imagen */
+  background-size: cover;
+  background-position: center;
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+
+/* Contenedor del formulario */
+.login-container {
+  width: 380px;
+  background-color: #fff;
+  padding: 40px 30px;
+  border-radius: 0 12px 12px 0;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  margin-right: 80px;
+  text-align: center;
+}
+
+/* Título */
+.login-container h2 {
+  color: #1b5e20;
+  font-size: 28px;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.login-container h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background-color: #1b5e20;
+  margin: 8px auto 20px auto;
+  border-radius: 2px;
+}
+
+/* Formulario */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.login-form label {
+  text-align: left;
+  font-weight: 600;
+  color: #333;
+  margin-top: 5px;
+}
+
+.login-form input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #f3f3f3;
+  outline: none;
+}
+
+.login-form input:focus {
+  border-color: #2e7d32;
+  background-color: #fff;
+}
+
+/* Botón */
+.login-form button {
+  margin-top: 10px;
+  padding: 12px;
+  background-color: #2e7d32;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.login-form button:hover {
+  background-color: #3d8b3d;
+}
+
+/* Responsivo */
+@media (max-width: 800px) {
+  .login-page {
+    flex-direction: column;
+  }
+
+  .login-left {
+    display: none;
+  }
+
+  .login-container {
+    border-radius: 12px;
+    margin: 0;
+    width: 90%;
+  }
+}

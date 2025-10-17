@@ -8,13 +8,12 @@
 }
 
 .logo {
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 700;
   color: #ffffff;
   letter-spacing: 1px;
   white-space: nowrap; /*el nowrap para hacer hacer que el logo este en una sola linea*/
 }
-
 
 .nav {
   display: flex;
