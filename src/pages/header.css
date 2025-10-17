@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between; /* separa el logo con los botones de registro */
   align-items: center;
-  background-color: #248b2b;
+  background-color: #1e7914;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 100%;
 }
@@ -10,7 +10,7 @@
 .logo {
   font-size: 1.8rem;
   font-weight: 700;
-  color: rgb(245, 245, 245);
+  color: #ffffff;
   letter-spacing: 1px;
   white-space: nowrap; /*el nowrap para hacer hacer que el logo este en una sola linea*/
 }

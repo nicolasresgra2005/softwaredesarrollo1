@@ -1,13 +1,18 @@
 import React from "react";
 import "./Home.css";
+
 function Home() {
   return (
-    <div className="info-section">
-      <h2>Bienvenido a <span className="highlight">AgroSense</span></h2>
-      <p>
-        Una plataforma inteligente que conecta tecnología y agricultura para optimizar tus recursos,
-        monitorear tus cultivos y mejorar la producción de manera sostenible.
-      </p>
+    <div className="home-container">   {/* 👈 Debe llamarse igual */}
+      <div className="info-section">
+        <h2>
+         <h2 class="titulo">Bienvenido a AgroSense</h2>
+        </h2>
+        <p>
+          Una plataforma inteligente que combina tecnología agrícola y 
+          monitoreo ambiental para medir la humedad y temperatura del suelo, ayudando a optimizar el riego y mejorar el rendimiento de los cultivos de forma sostenible.
+        </p>
+      </div>
     </div>
   );
 }
