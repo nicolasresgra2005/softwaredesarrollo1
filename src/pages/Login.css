@@ -1,110 +1,57 @@
-/* Estructura principal */
-.login-page {
+/* 🔹 Contenedor principal del login */
+.login-container {
   display: flex;
+  justify-content: flex-end; /* mover login a la derecha */
   align-items: center;
-  height: 100vh;
+  min-height: 100vh; /* ocupa toda la altura visible */
   width: 100%;
   background-image: url('../assets/FondoL.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-size: cover;       /* cubre toda la pantalla */
+  background-position: center;  /* centrada */
+  background-repeat: no-repeat; /* sin repetir */
+  background-attachment: fixed; /* mantiene la imagen fija */
+  overflow: hidden;             /* evita scroll innecesario */
 }
 
-/* Lado izquierdo con la imagen */
-.login-left {
-  flex: 1;
-  background-image: url('../assets/amigos.jpg'); /* Ajusta nombre si es otra imagen */
-  background-size: cover;
-  background-position: center;
-  border-top-left-radius: 12px;
-  border-bottom-left-radius: 12px;
-}
-
-/* Contenedor del formulario */
-.login-container {
-  width: 380px;
-  background-color: #fff;
-  padding: 40px 30px;
-  border-radius: 0 12px 12px 0;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  margin-right: 80px;
+/* 🔹 Caja del formulario */
+.login-box {
+  background-color: rgba(255, 255, 255, 0.9);
+  width: 350px;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   text-align: center;
+  margin-right: 5%; /* separa del borde derecho */
 }
 
-/* Título */
-.login-container h2 {
-  color: #1b5e20;
-  font-size: 28px;
-  margin-bottom: 8px;
-  font-weight: 700;
+.login-box h2 {
+  margin-bottom: 20px;
+  color: #2e7d32;
 }
 
-.login-container h2::after {
-  content: "";
-  display: block;
-  width: 60px;
-  height: 4px;
-  background-color: #1b5e20;
-  margin: 8px auto 20px auto;
-  border-radius: 2px;
-}
-
-/* Formulario */
-.login-form {
+.login-box form {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 15px;
 }
 
-.login-form label {
-  text-align: left;
-  font-weight: 600;
-  color: #333;
-  margin-top: 5px;
-}
-
-.login-form input {
+.login-box input {
   padding: 10px;
-  border-radius: 8px;
   border: 1px solid #ccc;
-  background-color: #f3f3f3;
+  border-radius: 8px;
   outline: none;
 }
 
-.login-form input:focus {
-  border-color: #2e7d32;
-  background-color: #fff;
-}
-
-/* Botón */
-.login-form button {
-  margin-top: 10px;
-  padding: 12px;
+.login-box button {
   background-color: #2e7d32;
-  color: #fff;
+  color: white;
   border: none;
+  padding: 10px;
   border-radius: 8px;
-  font-weight: 700;
   cursor: pointer;
+  transition: 0.3s;
 }
 
-.login-form button:hover {
-  background-color: #3d8b3d;
-}
-
-/* Responsivo */
-@media (max-width: 800px) {
-  .login-page {
-    flex-direction: column;
-  }
-
-  .login-left {
-    display: none;
-  }
-
-  .login-container {
-    border-radius: 12px;
-    margin: 0;
-    width: 90%;
-  }
+.login-box button:hover {
+  background-color: #1b5e20;
 }

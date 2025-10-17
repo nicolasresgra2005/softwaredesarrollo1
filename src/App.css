@@ -171,10 +171,6 @@ html, body, #root {
   gap: 3px;
 }
 
-.login{
-  background-color: #ebebeb;
-}
-
 .auth-form input {
   width: 100%;
   padding: 12px;
