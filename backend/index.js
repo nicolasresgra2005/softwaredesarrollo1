@@ -13,12 +13,12 @@ app.use(express.json());
 
 // Ruta base para probar el servidor
 app.get("/", (req, res) => {
-  res.send("✅ Servidor backend funcionando correctamente!");
+  res.send("server running");
 });
 
 // Puerto
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(`🚀 Servidor corriendo en el puerto ${PORT}`);
+  console.log(`server on ${PORT}`);
 });
