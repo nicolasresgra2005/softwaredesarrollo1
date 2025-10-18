@@ -2,24 +2,38 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #16aa20;
+  background-color: #1b5e20;
   color: white;
   padding: 10px 20px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   width: 100%;
 }
 
+/* Contenedor de logo (imagen + texto) */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Imagen del logo (usa background-image desde assets) */
+.logo-image {
+  width: 50px;
+  height: 50px;
+  background-image: url("../assets/Logo_A-S.jpg"); /* ← ajusta el nombre */
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  background-size: contain; /* mantiene la calidad sin deformar */
+  image-rendering: crisp-edges; /* mejora nitidez en imágenes pequeñas */background-size: contain; /* mantiene la calidad sin deformar */
+  image-rendering: crisp-edges; /* mejora nitidez en imágenes pequeñas */
+}
+
 /* Texto del logo */
-.logo {
+.logo-text {
   font-size: 1.8rem;
   font-weight: bold;
   letter-spacing: 0.2px;
-}
-
-/* Palabra destacada (si el logo tiene dos colores) */
-.highlight {
-  color: #2e7d32;
-  font-weight: bold;
 }
 
 /* Contenedor de botones de navegación */
@@ -31,7 +45,7 @@
 /* Botones del header */
 .nav-btn {
   background-color: white;
-  color: #2e7d32;
+  color: #1b5e20;
   border: none;
   border-radius: 5px;
   padding: 8px 18px;

@@ -8,10 +8,10 @@ function Register() {
         <h2>Registro de usuario</h2>
         <form>
           <label>Nombres</label>
-          <input type="text" placeholder="Nombres" />
+          <input type="text" placeholder="  Primer Nombre" />
 
           <label>Apellidos</label>
-          <input type="text" placeholder="Apellidos" />
+          <input type="text" placeholder="Primer Apellido" />
 
           <label>Correo electrónico</label>
           <input type="email" placeholder="Correo electrónico" />

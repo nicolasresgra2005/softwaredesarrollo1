@@ -5,7 +5,10 @@ import { Link } from "react-router-dom";
 function Header() {
   return (
     <header className="header">
-      <h1 className="logo">Agro-Sense</h1>
+      <div className="logo-container">
+        <div className="logo-image"></div>
+        <h1 className="logo-text">Agro-Sense</h1>
+      </div>
 
       <nav className="nav">
         <Link to="/" className="nav-btn">Inicio</Link>
