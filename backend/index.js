@@ -1,24 +1,28 @@
-// index.js
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import pool from "./config/db.js";
+import userRoutes from "./routes/userRoutes.js";
 
-dotenv.config(); // Carga las variables del archivo .env
+dotenv.config();
 
 const app = express();
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Ruta base para probar el servidor
+// Rutas
+app.use("/api/users", userRoutes);
+
+// Prueba de conexión
 app.get("/", (req, res) => {
-  res.send("server running");
+  res.send("backend working ");
 });
 
-// Puerto
 const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Servidor en puerto ${PORT}`));
 
-app.listen(PORT, () => {
-  console.log(`server on ${PORT}`);
-});
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true
+}));
