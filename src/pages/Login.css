@@ -15,19 +15,21 @@
 
 /* 🔹 Caja del formulario */
 .login-box {
-  background-color: rgba(255, 255, 255, 0.8); /* Más transparente */
-  width: 350px;
-  padding: 40px;
+  background-color: rgba(255, 255, 255, 0.8); /* igual al register */
+  width: 350px; /* igual al register */
+  padding: 40px; /* igual al register */
   border-radius: 15px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   text-align: center;
-  backdrop-filter: blur(6px); /* efecto vidrio sutil */
+  backdrop-filter: blur(6px);
 }
 
+/* 🔹 Título */
 .login-box h2 {
   margin-bottom: 25px;
   color: #2e7d32;
   font-weight: 700;
+  font-size: 22px;
 }
 
 /* 🔹 Campos y etiquetas */
@@ -48,6 +50,7 @@
   border-radius: 8px;
   outline: none;
   margin-bottom: 8px;
+  font-size: 14px;
 }
 
 /* 🔹 Botón */
@@ -61,6 +64,7 @@
   transition: 0.3s;
   width: 100%;
   font-weight: 600;
+  font-size: 15px;
 }
 
 .login-box button:hover {
@@ -72,4 +76,5 @@
   color: #d32f2f;
   font-weight: 500;
   margin-top: 10px;
+  font-size: 14px;
 }

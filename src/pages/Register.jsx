@@ -8,6 +8,7 @@ const Register = () => {
     Primer_Apellido_U: "",
     Correo_Electronico_U: "",
     Contraseña_U: "",
+    Confirmar_Contraseña: "",
   });
 
   const [message, setMessage] = useState("");
@@ -18,6 +19,11 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (formData.Contraseña_U !== formData.Confirmar_Contraseña) {
+      setMessage("Las contraseñas no coinciden");
+      return;
+    }
 
     try {
       const res = await API.post("/register", formData);
@@ -32,46 +38,52 @@ const Register = () => {
       <form className="register-box" onSubmit={handleSubmit}>
         <h2>Registro</h2>
 
-        <label htmlFor="Primer_Nombre_U">Primer Nombre</label>
+        <label>Primer Nombre</label>
         <input
           type="text"
-          id="Primer_Nombre_U"
           name="Primer_Nombre_U"
-          placeholder="Ingrese su nombre"
+          placeholder="Nombre"
           value={formData.Primer_Nombre_U}
           onChange={handleChange}
           required
         />
 
-        <label htmlFor="Primer_Apellido_U">Primer Apellido</label>
+        <label>Primer Apellido</label>
         <input
           type="text"
-          id="Primer_Apellido_U"
           name="Primer_Apellido_U"
-          placeholder="Ingrese su apellido"
+          placeholder="Apellido"
           value={formData.Primer_Apellido_U}
           onChange={handleChange}
           required
         />
 
-        <label htmlFor="Correo_Electronico_U">Correo electrónico</label>
+        <label>Correo electrónico</label>
         <input
           type="email"
-          id="Correo_Electronico_U"
           name="Correo_Electronico_U"
-          placeholder="Ingrese su correo electrónico"
+          placeholder="Correo electrónico"
           value={formData.Correo_Electronico_U}
           onChange={handleChange}
           required
         />
 
-        <label htmlFor="Contraseña_U">Contraseña</label>
+        <label>Contraseña</label>
         <input
           type="password"
-          id="Contraseña_U"
           name="Contraseña_U"
-          placeholder="Ingrese su contraseña"
+          placeholder="Contraseña"
           value={formData.Contraseña_U}
+          onChange={handleChange}
+          required
+        />
+
+        <label>Confirmar contraseña</label>
+        <input
+          type="password"
+          name="Confirmar_Contraseña"
+          placeholder="Confirmar contraseña"
+          value={formData.Confirmar_Contraseña}
           onChange={handleChange}
           required
         />
