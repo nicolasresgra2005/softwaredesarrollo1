@@ -1,14 +1,12 @@
 import { useState } from "react";
 import API from "../api";
-import "../pages/Register.css";
+import "./Register.css";
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    Primer_Nombre_U: "",
-    Primer_Apellido_U: "",
+    Nombre_U: "",
     Correo_Electronico_U: "",
     Contraseña_U: "",
-    Confirmar_Contraseña: "",
   });
 
   const [message, setMessage] = useState("");
@@ -20,11 +18,6 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (formData.Contraseña_U !== formData.Confirmar_Contraseña) {
-      setMessage("Las contraseñas no coinciden");
-      return;
-    }
-
     try {
       const res = await API.post("/register", formData);
       setMessage(res.data.message);
@@ -34,61 +27,44 @@ const Register = () => {
   };
 
   return (
-    <div className="register-container">
-      <form className="register-box" onSubmit={handleSubmit}>
+    <div className="login-container">
+      <form className="login-box" onSubmit={handleSubmit}>
         <h2>Registro</h2>
 
-        <label>Primer Nombre</label>
+        <label htmlFor="Nombre_U">Nombre</label>
         <input
           type="text"
-          name="Primer_Nombre_U"
-          placeholder="Nombre"
-          value={formData.Primer_Nombre_U}
+          id="Nombre_U"
+          name="Nombre_U"
+          placeholder="Ingrese su nombre"
+          value={formData.Nombre_U}
           onChange={handleChange}
           required
         />
 
-        <label>Primer Apellido</label>
-        <input
-          type="text"
-          name="Primer_Apellido_U"
-          placeholder="Apellido"
-          value={formData.Primer_Apellido_U}
-          onChange={handleChange}
-          required
-        />
-
-        <label>Correo electrónico</label>
+        <label htmlFor="Correo_Electronico_U">Correo electrónico</label>
         <input
           type="email"
+          id="Correo_Electronico_U"
           name="Correo_Electronico_U"
-          placeholder="Correo electrónico"
+          placeholder="Ingrese su correo electrónico"
           value={formData.Correo_Electronico_U}
           onChange={handleChange}
           required
         />
 
-        <label>Contraseña</label>
+        <label htmlFor="Contraseña_U">Contraseña</label>
         <input
           type="password"
+          id="Contraseña_U"
           name="Contraseña_U"
-          placeholder="Contraseña"
+          placeholder="Cree una contraseña"
           value={formData.Contraseña_U}
           onChange={handleChange}
           required
         />
 
-        <label>Confirmar contraseña</label>
-        <input
-          type="password"
-          name="Confirmar_Contraseña"
-          placeholder="Confirmar contraseña"
-          value={formData.Confirmar_Contraseña}
-          onChange={handleChange}
-          required
-        />
-
-        <button type="submit">Registrarse</button>
+        <button type="submit">Registrar</button>
         {message && <p>{message}</p>}
       </form>
     </div>
@@ -96,3 +72,4 @@ const Register = () => {
 };
 
 export default Register;
+

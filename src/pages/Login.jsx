@@ -1,6 +1,6 @@
 import { useState } from "react";
 import API from "../api";
-import "../pages/Login.css";
+import "./Login.css";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -19,8 +19,10 @@ const Login = () => {
 
     try {
       const res = await API.post("/login", formData);
-      setMessage(res.data.message);
       localStorage.setItem("token", res.data.token);
+
+      // Redirige al perfil si el login fue exitoso
+      window.location.href = "/perfil";
     } catch (err) {
       setMessage(err.response?.data?.message || "Error al iniciar sesión");
     }
