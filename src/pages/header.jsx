@@ -1,22 +1,25 @@
-import React from "react";
-import "./header.css";
-import { Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Header from "./pages/Header"; // 👈 con H mayúscula
 
-function Header() {
+function App() {
   return (
-    <header className="header">
-      <div className="logo-container">
-        <div className="logo-image"></div>
-        <h1 className="logo-text">Agro-Sense</h1>
-      </div>
+    <Router>
+      {/* 👇 Encabezado visible en todas las páginas */}
+      <Header />
 
-      <nav className="nav">
-        <Link to="/" className="nav-btn">Inicio</Link>
-        <Link to="/login" className="nav-btn">Iniciar sesión</Link>
-        <Link to="/register" className="nav-btn">Registro</Link>
-      </nav>
-    </header>
+      {/* 👇 Contenido principal con las rutas */}
+      <main className="main-content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </main>
+    </Router>
   );
 }
 
-export default Header;
+export default App;
