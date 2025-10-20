@@ -32,7 +32,7 @@ const Register = () => {
       <form className="register-box" onSubmit={handleSubmit}>
         <h2>Registro</h2>
 
-        <label htmlFor="Primer_Nombre_U">Nombre</label>
+        <label htmlFor="Primer_Nombre_U">Primer Nombre</label>
         <input
           type="text"
           id="Primer_Nombre_U"
@@ -43,7 +43,7 @@ const Register = () => {
           required
         />
 
-        <label htmlFor="Primer_Apellido_U">Apellido</label>
+        <label htmlFor="Primer_Apellido_U">Primer Apellido</label>
         <input
           type="text"
           id="Primer_Apellido_U"
