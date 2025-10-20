@@ -25,7 +25,6 @@
   background-position: center;
   border-radius: 50%;
   background-size: contain; /* mantiene la calidad sin deformar */
-  image-rendering: crisp-edges; /* mejora nitidez en imágenes pequeñas */background-size: contain; /* mantiene la calidad sin deformar */
   image-rendering: crisp-edges; /* mejora nitidez en imágenes pequeñas */
 }
 

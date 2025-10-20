@@ -1,5 +1,6 @@
 import { useState } from "react";
 import API from "../api";
+import "../pages/Register.css";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -31,34 +32,45 @@ const Register = () => {
       <form className="register-box" onSubmit={handleSubmit}>
         <h2>Registro</h2>
 
+        <label htmlFor="Primer_Nombre_U">Nombre</label>
         <input
           type="text"
+          id="Primer_Nombre_U"
           name="Primer_Nombre_U"
-          placeholder="Nombre"
+          placeholder="Ingrese su nombre"
           value={formData.Primer_Nombre_U}
           onChange={handleChange}
           required
         />
+
+        <label htmlFor="Primer_Apellido_U">Apellido</label>
         <input
           type="text"
+          id="Primer_Apellido_U"
           name="Primer_Apellido_U"
-          placeholder="Apellido"
+          placeholder="Ingrese su apellido"
           value={formData.Primer_Apellido_U}
           onChange={handleChange}
           required
         />
+
+        <label htmlFor="Correo_Electronico_U">Correo electrónico</label>
         <input
           type="email"
+          id="Correo_Electronico_U"
           name="Correo_Electronico_U"
-          placeholder="Correo electrónico"
+          placeholder="Ingrese su correo electrónico"
           value={formData.Correo_Electronico_U}
           onChange={handleChange}
           required
         />
+
+        <label htmlFor="Contraseña_U">Contraseña</label>
         <input
           type="password"
+          id="Contraseña_U"
           name="Contraseña_U"
-          placeholder="Contraseña"
+          placeholder="Ingrese su contraseña"
           value={formData.Contraseña_U}
           onChange={handleChange}
           required

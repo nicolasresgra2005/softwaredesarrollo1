@@ -1,5 +1,6 @@
 import { useState } from "react";
 import API from "../api";
+import "../pages/Login.css";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -19,7 +20,7 @@ const Login = () => {
     try {
       const res = await API.post("/login", formData);
       setMessage(res.data.message);
-      localStorage.setItem("token", res.data.token); // Guarda el token JWT
+      localStorage.setItem("token", res.data.token);
     } catch (err) {
       setMessage(err.response?.data?.message || "Error al iniciar sesión");
     }
@@ -30,18 +31,23 @@ const Login = () => {
       <form className="login-box" onSubmit={handleSubmit}>
         <h2>Iniciar sesión</h2>
 
+        <label htmlFor="Correo_Electronico_U">Correo electrónico</label>
         <input
           type="email"
+          id="Correo_Electronico_U"
           name="Correo_Electronico_U"
-          placeholder="Correo electrónico"
+          placeholder="Ingrese su correo electrónico"
           value={formData.Correo_Electronico_U}
           onChange={handleChange}
           required
         />
+
+        <label htmlFor="Contraseña_U">Contraseña</label>
         <input
           type="password"
+          id="Contraseña_U"
           name="Contraseña_U"
-          placeholder="Contraseña"
+          placeholder="Ingrese su contraseña"
           value={formData.Contraseña_U}
           onChange={handleChange}
           required
