@@ -4,17 +4,14 @@ import "./Login.css";
 
 const Login = () => {
   const [formData, setFormData] = useState({
-    Correo_Electronico_u: "",
-    contraseña_u: "",
+    Correo_Electronico_U: "",
+    Contraseña_U: "",
   });
 
   const [message, setMessage] = useState("");
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
@@ -22,11 +19,15 @@ const Login = () => {
 
     try {
       const res = await API.post("/login", formData);
+
+      // 👇 Guardamos token y usuario en el almacenamiento local
       localStorage.setItem("token", res.data.token);
-      alert("Inicio de sesión exitoso");
+      localStorage.setItem("usuario", JSON.stringify(res.data.user));
+
+      // 👇 Redirige al perfil
       window.location.href = "/perfil";
     } catch (err) {
-      setMessage(err.response?.data?.message || "Error al iniciar");
+      setMessage(err.response?.data?.message || "Error al iniciar sesión");
     }
   };
 
@@ -65,5 +66,4 @@ const Login = () => {
 };
 
 export default Login;
-
 

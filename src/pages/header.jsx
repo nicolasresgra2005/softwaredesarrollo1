@@ -1,19 +1,31 @@
+import React from "react";
+import "./header.css";
 import { Link } from "react-router-dom";
-import "./header.css"
 
-const Header = () => {
+function Header() {
   return (
     <header className="header">
-      <h1>Agro-Sense</h1>
-      <nav>
-        <ul>
-          <li><Link to="/">Inicio</Link></li>
-          <li><Link to="/login">Iniciar Sesión</Link></li>
-          <li><Link to="/register">Registrarse</Link></li>
-            </ul>
+      
+      <div className="logo-container">
+        <div className="logo-image"></div>
+        <h1 className="logo-text">Agro-Sense</h1>
+      </div>
+
+      
+      <nav className="nav">
+        <Link to="/" className="nav-btn">
+          Inicio
+        </Link>
+        <Link to="/login" className="nav-btn">
+          Iniciar sesión
+        </Link>
+        <Link to="/register" className="nav-btn">
+          Registro
+        </Link>
       </nav>
     </header>
   );
-};
+}
 
 export default Header;
+
