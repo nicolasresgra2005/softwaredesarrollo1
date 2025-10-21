@@ -1,25 +1,19 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Header from "./pages/Header"; // 👈 con H mayúscula
+import { Link } from "react-router-dom";
+import "./Header.css"
 
-function App() {
+const Header = () => {
   return (
-    <Router>
-      {/* 👇 Encabezado visible en todas las páginas */}
-      <Header />
-
-      {/* 👇 Contenido principal con las rutas */}
-      <main className="main-content">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-        </Routes>
-      </main>
-    </Router>
+    <header className="header">
+      <h1>Agro-Sense</h1>
+      <nav>
+        <ul>
+          <li><Link to="/">Inicio</Link></li>
+          <li><Link to="/login">Iniciar Sesión</Link></li>
+          <li><Link to="/register">Registrarse</Link></li>
+            </ul>
+      </nav>
+    </header>
   );
-}
+};
 
-export default App;
+export default Header;

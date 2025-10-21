@@ -1,74 +1,101 @@
-// controllers/userController.js
-import pool from "../config/db.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import pool from "../config/db.js";
 
-// ✅ Registro de usuario
+const JWT_SECRET = "Nicolas1912";
+
+// 🟩 REGISTRAR USUARIO
 export const registerUser = async (req, res) => {
   try {
     const { Primer_Nombre_U, Primer_Apellido_U, Correo_Electronico_U, Contraseña_U } = req.body;
 
-    // Validar campos
     if (!Primer_Nombre_U || !Primer_Apellido_U || !Correo_Electronico_U || !Contraseña_U) {
-      return res.status(400).json({ message: "Todos los campos son obligatorios" });
+      return res.status(400).json({ error: "Todos los campos son obligatorios" });
     }
 
     // Verificar si el correo ya existe
-    const existingUser = await pool.query(
-      "SELECT * FROM Usuario WHERE Correo_Electronico_U = $1",
+    const exists = await pool.query(
+      "SELECT * FROM usuario WHERE correo_electronico_u = $1",
       [Correo_Electronico_U]
     );
 
-    if (existingUser.rows.length > 0) {
-      return res.status(400).json({ message: "El correo ya está registrado" });
+    if (exists.rows.length > 0) {
+      return res.status(400).json({ error: "El correo ya está registrado" });
     }
 
     // Encriptar contraseña
     const hashedPassword = await bcrypt.hash(Contraseña_U, 10);
 
-    // Insertar usuario
-    await pool.query(
-      `INSERT INTO Usuario (Primer_Nombre_U, Primer_Apellido_U, Correo_Electronico_U, Contraseña_U)
-       VALUES ($1, $2, $3, $4)`,
+    // Insertar nuevo usuario
+    const result = await pool.query(
+      `INSERT INTO usuario (primer_nombre_u, primer_apellido_u, correo_electronico_u, contraseña_u)
+       VALUES ($1, $2, $3, $4)
+       RETURNING *`,
       [Primer_Nombre_U, Primer_Apellido_U, Correo_Electronico_U, hashedPassword]
     );
 
-    res.status(201).json({ message: "Usuario registrado con éxito" });
+    const user = result.rows[0];
+
+    const token = jwt.sign(
+      { id: user.id_usuario, correo: user.correo_electronico_u },
+      JWT_SECRET,
+      { expiresIn: "2h" }
+    );
+
+    res.status(201).json({
+      message: "✅ Usuario registrado correctamente",
+      user,
+      token,
+    });
   } catch (error) {
-    console.error("Error en registro:", error);
-    res.status(500).json({ message: "Error en el servidor" });
+    console.error("❌ Error al registrar usuario:", error);
+    res.status(500).json({ error: "Error interno del servidor" });
   }
 };
 
-// ✅ Login de usuario
+// 🟨 LOGIN
 export const loginUser = async (req, res) => {
   try {
     const { Correo_Electronico_U, Contraseña_U } = req.body;
 
-    const user = await pool.query(
-      "SELECT * FROM Usuario WHERE Correo_Electronico_U = $1",
+    if (!Correo_Electronico_U || !Contraseña_U) {
+      return res.status(400).json({ error: "Correo y contraseña son obligatorios" });
+    }
+
+    const result = await pool.query(
+      "SELECT * FROM usuario WHERE correo_electronico_u = $1",
       [Correo_Electronico_U]
     );
 
-    if (user.rows.length === 0) {
-      return res.status(400).json({ message: "Usuario no encontrado" });
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Usuario no encontrado" });
     }
 
-    const validPassword = await bcrypt.compare(Contraseña_U, user.rows[0].contraseña_u);
-    if (!validPassword) {
-      return res.status(401).json({ message: "Contraseña incorrecta" });
+    const user = result.rows[0];
+
+    const valid = await bcrypt.compare(Contraseña_U, user.contraseña_u);
+    if (!valid) {
+      return res.status(401).json({ error: "Contraseña incorrecta" });
     }
 
-    // Crear token
     const token = jwt.sign(
-      { id: user.rows[0].id_usuario, correo: user.rows[0].correo_electronico_u },
-      process.env.JWT_SECRET,
-      { expiresIn: "1h" }
+      { id: user.id_usuario, correo: user.correo_electronico_u },
+      JWT_SECRET,
+      { expiresIn: "2h" }
     );
 
-    res.status(200).json({ message: "Login exitoso", token });
+    res.status(200).json({
+      message: "✅ Inicio de sesión exitoso",
+      user: {
+        id: user.id_usuario,
+        nombre: user.primer_nombre_u,
+        apellido: user.primer_apellido_u,
+        correo: user.correo_electronico_u,
+      },
+      token,
+    });
   } catch (error) {
-    console.error("Error en login:", error);
-    res.status(500).json({ message: "Error en el servidor" });
+    console.error("❌ Error en login:", error);
+    res.status(500).json({ error: "Error interno del servidor" });
   }
 };
