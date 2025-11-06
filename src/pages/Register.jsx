@@ -37,7 +37,7 @@ const Register = () => {
       <form className="register-box" onSubmit={handleSubmit}>
         <h2>Registro de Usuario</h2>
 
-        <label htmlFor="Primer_Nombre_U">Nombre</label>
+        <label htmlFor="Primer_Nombre_U"></label>
         <input
           type="text"
           id="Primer_Nombre_U"
@@ -48,7 +48,7 @@ const Register = () => {
           required
         />
 
-        <label htmlFor="Primer_Apellido_U">Apellido</label>
+        <label htmlFor="Primer_Apellido_U"></label>
         <input
           type="text"
           id="Primer_Apellido_U"
@@ -59,7 +59,7 @@ const Register = () => {
           required
         />
 
-        <label htmlFor="Correo_Electronico_U">Correo electrónico</label>
+        <label htmlFor="Correo_Electronico_U"></label>
         <input
           type="email"
           id="Correo_Electronico_U"
@@ -70,7 +70,7 @@ const Register = () => {
           required
         />
 
-        <label htmlFor="Contraseña_U">Contraseña</label>
+        <label htmlFor="Contraseña_U"></label>
         <input
           type="password"
           id="Contraseña_U"

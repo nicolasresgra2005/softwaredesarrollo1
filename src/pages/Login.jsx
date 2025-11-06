@@ -1,6 +1,7 @@
 import { useState } from "react";
 import API from "../api";
 import "./Login.css";
+import { Link, useNavigate } from "react-router-dom"; // ✅ Importamos Link y useNavigate
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +10,7 @@ const Login = () => {
   });
 
   const [message, setMessage] = useState("");
+  const navigate = useNavigate(); // ✅ Para redirigir después del login
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -20,14 +22,14 @@ const Login = () => {
     try {
       const res = await API.post("/login", formData);
 
-      // 👇 Guardamos token y usuario en el almacenamiento local
+      // ✅ Guardamos token y usuario en el almacenamiento local
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("usuario", JSON.stringify(res.data.user));
 
-      // 👇 Redirige al perfil
-      window.location.href = "/perfil";
+      // ✅ Redirige al perfil usando React Router
+      navigate("/perfil");
     } catch (err) {
-      setMessage(err.response?.data?.message || "Error al iniciar sesión");
+      setMessage(err.response?.data?.message || "Contraseña o correo incorrecto");
     }
   };
 
@@ -36,7 +38,7 @@ const Login = () => {
       <form className="login-box" onSubmit={handleSubmit}>
         <h2>Iniciar sesión</h2>
 
-        <label htmlFor="Correo_Electronico_U">Correo electrónico</label>
+        <label htmlFor="Correo_Electronico_U"></label>
         <input
           type="email"
           id="Correo_Electronico_U"
@@ -47,7 +49,7 @@ const Login = () => {
           required
         />
 
-        <label htmlFor="Contraseña_U">Contraseña</label>
+        <label htmlFor="Contraseña_U"></label>
         <input
           type="password"
           id="Contraseña_U"
@@ -59,11 +61,20 @@ const Login = () => {
         />
 
         <button type="submit">Ingresar</button>
+
         {message && <p>{message}</p>}
+
+        {/* ✅ Enlace correcto a la recuperación */}
+        <Link
+          to="/forgot-password"
+          className="text-sm text-blue-600 mt-3 hover:underline"
+          style={{ display: "inline-block", marginTop: "10px" }}
+        >
+          ¿Has olvidado tu contraseña?
+        </Link>
       </form>
     </div>
   );
 };
 
 export default Login;
-
