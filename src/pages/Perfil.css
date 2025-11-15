@@ -1,33 +1,41 @@
-/* Perfil.css - Solo estilos para el componente Perfil */
+/* HABILITAR SCROLL GLOBAL */
+html, body {
+  height: 100%;
+  overflow-y: auto !important;
+}
 
+/* CONTENEDOR PRINCIPAL */
 .perfil-page-container {
   min-height: 100vh;
   background: linear-gradient(135deg, #4caf50, #2e7d32);
   padding: 2rem 1rem;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start; /* <-- Permite que el contenido crezca hacia abajo */
   font-family: 'Poppins', sans-serif;
 }
 
+/* CARD DEL PERFIL */
 .perfil-container {
   background: rgba(255, 255, 255, 0.95);
   border-radius: 20px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   padding: 40px 60px;
-  max-width: 500px;
-  width: 90%;
+  max-width: 600px;
+  width: 95%;
   text-align: center;
   animation: fadeIn 0.8s ease;
-  margin-top: 2rem; /* Espacio para el header */
+  margin-top: 2rem;
 }
 
+/* TITULO */
 .perfil-container h1 {
   font-size: 2rem;
   color: #2e7d32;
   margin-bottom: 20px;
 }
 
+/* INFO DEL USUARIO */
 .perfil-info {
   background: #f8f9fa;
   border-radius: 12px;
@@ -47,6 +55,7 @@
   color: #2e7d32;
 }
 
+/* SECCIÓN DE SENSORES */
 .sensor-section {
   margin-top: 30px;
   padding-top: 20px;
@@ -80,20 +89,36 @@
   box-shadow: 0 0 5px rgba(46, 125, 50, 0.4);
 }
 
-.sensor-section button {
+/* BOTONES */
+.sensor-section button,
+.cerrar-sesion-btn {
   margin-top: 15px;
   padding: 10px 18px;
   border-radius: 8px;
   background: #2e7d32;
   color: #fff;
   border: none;
-  cursor: not-allowed;
-  opacity: 0.7;
+  cursor: pointer;
   font-family: inherit;
   font-size: 0.95rem;
+  transition: 0.3s;
 }
 
-/* Solo animación para este componente */
+.sensor-section button:hover,
+.cerrar-sesion-btn:hover {
+  background: #1b5e20;
+}
+
+/* BOTÓN ELIMINAR */
+.sensor-section .delete-btn {
+  background: #b71c1c;
+}
+
+.sensor-section .delete-btn:hover {
+  background: #8b1111;
+}
+
+/* ANIMACIÓN */
 @keyframes fadeIn {
   from { 
     opacity: 0; 
@@ -105,17 +130,17 @@
   }
 }
 
-/* Responsive */
+/* RESPONSIVE */
 @media (max-width: 768px) {
   .perfil-container {
     padding: 30px 20px;
-    margin-top: 1rem;
   }
   
   .perfil-container h1 {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
   }
   
   .sensor-section input {
-    width:90%;}
+    width: 90%;
+  }
 }

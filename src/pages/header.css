@@ -7,25 +7,26 @@
   padding: 10px 20px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   width: 100%;
+  position: relative;
+  z-index: 10;
 }
 
-/* Contenedor de logo (imagen + texto) */
+/* Contenedor del logo */
 .logo-container {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-/* Imagen del logo (usa background-image desde assets) */
+/* Imagen del logo */
 .logo-image {
   width: 50px;
   height: 50px;
-  background-image: url("../assets/Logo_A-S.jpg"); /* ← ajusta el nombre */
-  background-size: cover;
+  background-image: url("../assets/Logo_A-S.jpg");
+  background-size: contain;
   background-position: center;
   border-radius: 50%;
-  background-size: contain; /* mantiene la calidad sin deformar */
-  image-rendering: crisp-edges; /* mejora nitidez en imágenes pequeñas */
+  image-rendering: crisp-edges;
 }
 
 /* Texto del logo */
@@ -35,10 +36,11 @@
   letter-spacing: 0.2px;
 }
 
-/* Contenedor de botones de navegación */
+/* Contenedor de navegación */
 .nav {
   display: flex;
   gap: 15px;
+  transition: opacity 0.4s ease;
 }
 
 /* Botones del header */
@@ -52,9 +54,52 @@
   cursor: pointer;
   text-decoration: none;
   transition: background 0.3s ease, transform 0.2s;
+  opacity: 1;
 }
 
+/* Animación hover */
 .nav-btn:hover {
   background-color: #c8e6c9;
   transform: scale(1.05);
+}
+
+/* 🔹 Animaciones suaves al aparecer/desaparecer */
+@keyframes fadeInNav {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOutNav {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+}
+
+/* 🔹 Estados por ruta (no toco JSX, esto se maneja por pathname desde React) */
+body.home .nav .nav-btn[href="/"] {
+  display: none;
+}
+
+body.login .nav .nav-btn[href="/login"] {
+  display: none;
+}
+
+body.register .nav .nav-btn[href="/register"] {
+  display: none;
+}
+
+/* 🔹 Transición visual al cambiar */
+body .nav .nav-btn {
+  animation: fadeInNav 0.4s ease forwards;
 }

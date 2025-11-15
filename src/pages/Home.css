@@ -1,3 +1,7 @@
+body {
+  background-color: transparent !important;
+}
+
 .home-container {
   display: flex;
   flex-direction: column;
@@ -8,7 +12,7 @@
   text-align: center;
   color: #1b5e20;
   padding: 40px 20px;
-  margin: 0; 
+  margin: 0;
   background-image: url('../src/assets/FondoHome.png');
   background-size: cover;
   background-position: center;
@@ -24,12 +28,14 @@
   height: 150px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  animation: fadeInCentered 0.6s ease-in-out;
 }
 
-.info-section h2{
+.info-section h2 {
   margin-bottom: 0.5rem;
   padding: 0;
 }
+
 .info-section p {
   font-size: 0.95rem;
   margin: 0;
@@ -38,4 +44,15 @@
 .highlight {
   color: #1b5e20;
   font-weight: bold;
+}
+
+@keyframes fadeInCentered {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }

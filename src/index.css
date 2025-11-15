@@ -1,23 +1,22 @@
-
-
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Estilodocumento*/
-html, body {
+/* 🔹 Fondo global inicial */
+html,
+body {
   height: 100vh;
   width: 100%;
   font-family: "Poppins", sans-serif;
-  background-color: #ffffff; /* fondo claro */
-  color: #1b5e20; /* Verde oscuro */
+  background-color: #1b5e20; /* ✅ igual que el header para evitar el flash blanco */
+  color: #1b5e20;
   overflow: hidden;
+  transition: background-color 0.3s ease; /* transición suave */
 }
 
-/* Asegura que el root se expanda al 100% */
+/* 🔹 Mantiene el layout principal sin scroll extra */
 #root {
   height: 100vh;
   min-height: 100vh;
@@ -25,7 +24,7 @@ html, body {
   flex-direction: column;
 }
 
-/* Enlaces por defecto */
+/* 🔹 Enlaces por defecto */
 a {
   color: inherit;
   text-decoration: none;
@@ -33,4 +32,67 @@ a {
 
 a:hover {
   opacity: 0.8;
+}
+
+/* 🔹 Fondo temporal mientras las imágenes cargan */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-color: #1b5e20; /* mismo color que header */
+  z-index: -1;
+}
+
+/* 🔹 Evita parpadeo al cargar fondos de secciones */
+.home-container,
+.login-container,
+.register-container {
+  background-color: #1b5e20; /* color de respaldo mientras carga el background-image */
+  background-blend-mode: normal;
+}
+
+/* 🔹 Oculta scrollbar en Home, Login y Register sin romper layout */
+.home-container,
+.login-container,
+.register-container {
+  scrollbar-width: none;       /* Firefox */
+  -ms-overflow-style: none;    /* IE y Edge antiguos */
+}
+
+.home-container::-webkit-scrollbar,
+.login-container::-webkit-scrollbar,
+.register-container::-webkit-scrollbar {
+  display: none;               /* Chrome, Safari, Edge nuevos */
+}
+
+/* 🔹 Asegura que no haya scroll accidental */
+.home-container,
+.login-container,
+.register-container {
+  overflow: hidden !important;
+}
+
+/* 🔹 Elimina la scrollbar visible, pero sin bloquear el header */
+.home-container,
+.login-container,
+.register-container {
+  overflow: hidden !important;  /* evita la barra de scroll */
+  scrollbar-width: none;        /* Firefox */
+  -ms-overflow-style: none;     /* IE y Edge antiguos */
+}
+
+.home-container::-webkit-scrollbar,
+.login-container::-webkit-scrollbar,
+.register-container::-webkit-scrollbar {
+  display: none;                /* Chrome, Safari, Edge */
+}
+
+/* 🔹 Asegura que el contenido esté centrado visualmente */
+.home-container,
+.login-container,
+.register-container {
+  min-height: calc(100vh - 70px); /* resta aprox. la altura del header */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

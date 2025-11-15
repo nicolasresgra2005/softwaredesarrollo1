@@ -17,7 +17,7 @@
 /* 🔹 Caja del formulario */
 .register-box {
   position: relative;
-  top: -30px; /* 🔼 Sube la caja sin afectar el fondo */
+  top: -30px;
   background-color: rgba(255, 255, 255, 0.85);
   width: 360px;
   padding: 35px 40px;
@@ -25,6 +25,9 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
   text-align: center;
   backdrop-filter: blur(6px);
+
+  /* 👇 Animación centrada */
+  animation: fadeInCentered 0.6s ease-in-out;
 }
 
 /* 🔹 Título */
@@ -45,14 +48,20 @@
   font-size: 14px;
 }
 
-/* 🔹 Campos */
-.register-box input {
+/* 🔹 Campos (unificados todos los tipos de input) */
+.register-box input[type="text"],
+.register-box input[type="email"],
+.register-box input[type="password"] {
   width: 100%;
-  padding: 10px;
+  height: 38px; /* 🔧 altura uniforme para todos */
+  padding: 0 10px; /* 🔧 padding lateral igual */
   border: 1px solid #ccc;
   border-radius: 8px;
   outline: none;
   margin-bottom: 8px;
+  font-size: 14px;
+  box-sizing: border-box; /* mantiene tamaño exacto */
+  appearance: none; /* quita estilo del navegador */
 }
 
 /* 🔹 Botón */
@@ -78,4 +87,29 @@
   color: #1b5e20;
   font-weight: 500;
   margin-top: 10px;
+}
+
+/* 🔹 Animación centrada */
+@keyframes fadeInCentered {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 🔧 Estabiliza los inputs durante la animación */
+.register-box input {
+  transition: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* 🔧 Evita borde o sombra al hacer foco */
+.register-box input:focus {
+  border-color: #2e7d32 !important;
+  box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.2);
 }

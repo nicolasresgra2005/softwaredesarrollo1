@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import './Perfil.css'
 
 const Perfil = () => {
   const [usuario, setUsuario] = useState(null);
