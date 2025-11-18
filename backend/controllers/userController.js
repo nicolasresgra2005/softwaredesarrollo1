@@ -26,7 +26,6 @@ export const registerUser = async (req, res) => {
         .json({ error: "Todos los campos son obligatorios" });
     }
 
-    // Verificar si el correo ya existe
     const exists = await pool.query(
       'SELECT * FROM "Usuario" WHERE "Correo_Electronico_U" = $1',
       [Correo_Electronico_U]
@@ -36,10 +35,8 @@ export const registerUser = async (req, res) => {
       return res.status(400).json({ error: "El correo ya está registrado" });
     }
 
-    // Encriptar contraseña
     const hashedPassword = await bcrypt.hash(Contraseña_U, 10);
 
-    // Insertar nuevo usuario
     const result = await pool.query(
       `INSERT INTO "Usuario" 
         ("Primer_Nombre_U", "Primer_Apellido_U", "Correo_Electronico_U", "Contraseña_U")
@@ -254,41 +251,33 @@ export const resetPassword = async (req, res) => {
 // 🆕 AGREGAR SENSOR
 export const agregarSensor = async (req, res) => {
   try {
-    const { id } = req.params;
-    const { sensorId } = req.body;
+    const { Id_Usuario, Ip_Sensor } = req.body;
 
-    if (!sensorId) {
-      return res
-        .status(400)
-        .json({ error: "El ID del sensor es obligatorio." });
+    if (!Id_Usuario || !Ip_Sensor) {
+      return res.status(400).json({ error: "Id_Usuario e Ip_Sensor son obligatorios." });
     }
 
-    const result = await pool.query(
-      'SELECT "sensores" FROM "Usuario" WHERE "Id_Usuario" = $1',
-      [id]
+    // Verificar si el usuario existe
+    const userCheck = await pool.query(
+      'SELECT * FROM "Usuario" WHERE "Id_Usuario" = $1',
+      [Id_Usuario]
     );
 
-    if (result.rows.length === 0) {
+    if (userCheck.rows.length === 0) {
       return res.status(404).json({ error: "Usuario no encontrado." });
     }
 
-    const sensores = result.rows[0].sensores || [];
-
-    if (sensores.find((s) => s.id === sensorId)) {
-      return res.status(400).json({ error: "Este sensor ya está asociado." });
-    }
-
-    const nuevoSensor = { id: sensorId, fecha: new Date().toISOString() };
-    const nuevosSensores = [...sensores, nuevoSensor];
-
-    await pool.query(
-      'UPDATE "Usuario" SET "sensores" = $1 WHERE "Id_Usuario" = $2',
-      [JSON.stringify(nuevosSensores), id]
+    // Insertar sensor
+    const nuevo = await pool.query(
+      `INSERT INTO "Sensor" ("Ip_Sensor", "Id_Usuario")
+       VALUES ($1, $2)
+       RETURNING *`,
+      [Ip_Sensor, Id_Usuario]
     );
 
-    res.status(200).json({
+    res.status(201).json({
       message: "✅ Sensor agregado correctamente.",
-      sensores: nuevosSensores,
+      sensor: nuevo.rows[0],
     });
   } catch (error) {
     console.error("❌ Error al agregar sensor:", error);
@@ -296,31 +285,25 @@ export const agregarSensor = async (req, res) => {
   }
 };
 
-// 🗑️ ELIMINAR SENSOR
+// 🗑️ ELIMINAR SENSOR 
 export const eliminarSensor = async (req, res) => {
   try {
-    const { id, sensorId } = req.params;
+    // La ruta envía sensorId → lo asigno manteniendo tu nombre
+    const { sensorId } = req.params;
+    const Id_Sensor = sensorId;
 
     const result = await pool.query(
-      'SELECT "sensores" FROM "Usuario" WHERE "Id_Usuario" = $1',
-      [id]
+      'DELETE FROM "Sensor" WHERE "Id_Sensor" = $1 RETURNING *',
+      [Id_Sensor]
     );
 
     if (result.rows.length === 0) {
-      return res.status(404).json({ error: "Usuario no encontrado." });
+      return res.status(404).json({ error: "Sensor no encontrado." });
     }
-
-    const sensores = result.rows[0].sensores || [];
-    const nuevosSensores = sensores.filter((s) => s.id !== sensorId);
-
-    await pool.query(
-      'UPDATE "Usuario" SET "sensores" = $1 WHERE "Id_Usuario" = $2',
-      [JSON.stringify(nuevosSensores), id]
-    );
 
     res.status(200).json({
       message: "🗑️ Sensor eliminado correctamente.",
-      sensores: nuevosSensores,
+      sensor: result.rows[0],
     });
   } catch (error) {
     console.error("❌ Error al eliminar sensor:", error);
@@ -331,16 +314,16 @@ export const eliminarSensor = async (req, res) => {
 // 🟦 OBTENER SENSORES
 export const obtenerSensores = async (req, res) => {
   try {
-    const { idUsuario } = req.params;
+    const { Id_Usuario } = req.params;
 
     const result = await pool.query(
-      'SELECT * FROM "sensor" WHERE "Id_Usuario" = $1',
-      [idUsuario]
+      'SELECT * FROM "Sensor" WHERE "Id_Usuario" = $1',
+      [Id_Usuario]
     );
 
     res.status(200).json(result.rows);
   } catch (error) {
-    console.error("Error al obtener sensores:", error);
+    console.error("❌ Error al obtener sensores:", error);
     res.status(500).json({ error: "Error al obtener sensores" });
   }
 };

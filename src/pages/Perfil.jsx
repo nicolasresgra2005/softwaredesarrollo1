@@ -9,7 +9,6 @@ const Perfil = () => {
   const [mensaje, setMensaje] = useState("");
   const [cargando, setCargando] = useState(false);
 
-  // 🔹 Cargar usuario y sensores al iniciar
   useEffect(() => {
     const userData = localStorage.getItem("usuario");
     if (userData) {
@@ -19,7 +18,7 @@ const Perfil = () => {
     }
   }, []);
 
-  // 🟩 Obtener sensores del usuario desde el backend
+  // 🟩 Obtener sensores del usuario
   const obtenerSensores = async (idUsuario) => {
     try {
       const res = await fetch(`http://localhost:5000/api/users/sensores/${idUsuario}`);
@@ -32,59 +31,58 @@ const Perfil = () => {
     }
   };
 
-  // 🟢 Asociar un nuevo sensor
+  // 🟢 Asociar nuevo sensor (CORREGIDO)
   const asociarSensor = async () => {
     if (!nuevoSensor) return setMensaje("⚠️ Ingresa un ID de sensor.");
 
     setCargando(true);
     setMensaje("");
 
-    // ⏳ Simular tiempo de carga (3 segundos)
-    setTimeout(async () => {
-      try {
-        const res = await fetch("http://localhost:5000/api/sensores/agregar", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            id_sensor: nuevoSensor,
-            id_usuario: usuario.id,
-            ip_sensor: Math.floor(Math.random() * 255),
-          }),
-        });
+    try {
+      const res = await fetch("http://localhost:5000/api/users/sensores/agregar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          Id_Usuario: usuario.id,
+          Ip_Sensor: nuevoSensor
+        }),
+      });
 
-        if (!res.ok) throw new Error("Error al agregar el sensor");
-        setMensaje("✅ Sensor agregado correctamente.");
-        setNuevoSensor("");
-        obtenerSensores(usuario.id);
-      } catch (error) {
-        console.error(error);
-        setMensaje("❌ No se pudo agregar el sensor.");
-      } finally {
-        setCargando(false);
-      }
-    }, 3000);
+      if (!res.ok) throw new Error("Error al agregar el sensor");
+
+      setMensaje("✅ Sensor agregado correctamente.");
+      setNuevoSensor("");
+      obtenerSensores(usuario.id);
+
+    } catch (error) {
+      console.error(error);
+      setMensaje("❌ No se pudo agregar el sensor.");
+    } finally {
+      setCargando(false);
+    }
   };
 
-  // 🔴 Eliminar sensor por ID
+  // 🔴 Eliminar sensor (CORREGIDO)
   const eliminarSensor = async () => {
     if (!sensorEliminar) return setMensaje("⚠️ Ingresa el ID del sensor a eliminar.");
 
     try {
-      const res = await fetch(`http://localhost:5000/api/sensores/eliminar/${sensorEliminar}`, {
+      const res = await fetch(`http://localhost:5000/api/users/sensores/eliminar/${sensorEliminar}`, {
         method: "DELETE",
       });
+
       if (!res.ok) throw new Error("Error al eliminar sensor");
 
       setMensaje("🗑️ Sensor eliminado correctamente.");
       setSensorEliminar("");
       obtenerSensores(usuario.id);
+
     } catch (error) {
       console.error(error);
       setMensaje("❌ No se pudo eliminar el sensor.");
     }
   };
 
-  // 🔸 Si no hay usuario logueado
   if (!usuario) {
     return (
       <h2 style={{ textAlign: "center", marginTop: 50 }}>
@@ -179,7 +177,6 @@ const Perfil = () => {
         )}
       </div>
 
-      {/* 🔹 Botón de cierre de sesión */}
       <button
         onClick={() => {
           localStorage.removeItem("token");
