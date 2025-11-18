@@ -20,7 +20,7 @@ router.post("/reset-password/:token", resetPassword);
 
 // 🔥 RUTAS CORRECTAS PARA LOS SENSORES
 router.post("/sensores/agregar", agregarSensor);
-router.delete("/sensores/eliminar/:Id_Sensor", eliminarSensor);
+router.delete("/sensores/eliminar/:Ip_Sensor", eliminarSensor);
 router.get("/sensores/:Id_Usuario", obtenerSensores);
 
 // Ruta de prueba

@@ -11,7 +11,7 @@ html, body {
   padding: 2rem 1rem;
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* <-- Permite que el contenido crezca hacia abajo */
+  align-items: flex-start;
   font-family: 'Poppins', sans-serif;
 }
 

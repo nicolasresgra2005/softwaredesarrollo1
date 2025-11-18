@@ -248,18 +248,22 @@ export const resetPassword = async (req, res) => {
   }
 };
 
-// 🆕 AGREGAR SENSOR
+// 🆕 AGREGAR SENSOR (Nombre_Lote + Tamaño_Lote)
 export const agregarSensor = async (req, res) => {
   try {
-    const { Id_Usuario, Ip_Sensor } = req.body;
+    const { Id_Usuario, Ip_Sensor, Nombre_Lote, Tamano_Lote } = req.body;
 
-    if (!Id_Usuario || !Ip_Sensor) {
-      return res.status(400).json({ error: "Id_Usuario e Ip_Sensor son obligatorios." });
+    console.log("📥 Datos recibidos:", req.body);
+
+    if (!Id_Usuario || !Ip_Sensor || !Nombre_Lote || !Tamano_Lote) {
+      return res.status(400).json({ 
+        error: "Todos los campos (IP, nombre y tamaño del lote) son obligatorios." 
+      });
     }
 
-    // Verificar si el usuario existe
+    // Verificar si existe el usuario
     const userCheck = await pool.query(
-      'SELECT * FROM "Usuario" WHERE "Id_Usuario" = $1',
+      'SELECT 1 FROM "Usuario" WHERE "Id_Usuario" = $1',
       [Id_Usuario]
     );
 
@@ -267,44 +271,64 @@ export const agregarSensor = async (req, res) => {
       return res.status(404).json({ error: "Usuario no encontrado." });
     }
 
-    // Insertar sensor
+    // Verificar si ya existe un sensor con la misma IP para ese usuario
+    const sensorDuplicado = await pool.query(
+      'SELECT 1 FROM "Sensor" WHERE "Id_Usuario" = $1 AND "Ip_Sensor" = $2',
+      [Id_Usuario, Ip_Sensor]
+    );
+
+    if (sensorDuplicado.rows.length > 0) {
+      return res.status(400).json({
+        error: "⚠️ El usuario ya tiene un sensor con esta misma IP."
+      });
+    }
+
+    // 👁️ IMPORTANTE: aquí usamos el nombre EXACTO de la tabla
     const nuevo = await pool.query(
-      `INSERT INTO "Sensor" ("Ip_Sensor", "Id_Usuario")
-       VALUES ($1, $2)
+      `INSERT INTO "Sensor" ("Ip_Sensor", "Id_Usuario", "Nombre_Lote", "Tamaño_Lote")
+       VALUES ($1, $2, $3, $4)
        RETURNING *`,
-      [Ip_Sensor, Id_Usuario]
+      [Ip_Sensor, Id_Usuario, Nombre_Lote, Tamano_Lote]  // Mantén Tamano_Lote en body
     );
 
     res.status(201).json({
       message: "✅ Sensor agregado correctamente.",
       sensor: nuevo.rows[0],
     });
+
   } catch (error) {
     console.error("❌ Error al agregar sensor:", error);
     res.status(500).json({ error: "Error al agregar el sensor." });
   }
 };
 
-// 🗑️ ELIMINAR SENSOR 
+// 🗑️ ELIMINAR SENSOR POR IP
 export const eliminarSensor = async (req, res) => {
   try {
-    // La ruta envía sensorId → lo asigno manteniendo tu nombre
-    const { sensorId } = req.params;
-    const Id_Sensor = sensorId;
+    const { Ip_Sensor } = req.params;
+
+    console.log("📥 IP recibida en URL para eliminar:", Ip_Sensor);
+
+    if (!Ip_Sensor) {
+      return res.status(400).json({ error: "IP no recibida en la URL" });
+    }
 
     const result = await pool.query(
-      'DELETE FROM "Sensor" WHERE "Id_Sensor" = $1 RETURNING *',
-      [Id_Sensor]
+      `DELETE FROM "Sensor"
+       WHERE "Ip_Sensor" = $1
+       RETURNING *`,
+      [Ip_Sensor]
     );
 
     if (result.rows.length === 0) {
-      return res.status(404).json({ error: "Sensor no encontrado." });
+      return res.status(404).json({ error: "Sensor no encontrado por IP." });
     }
 
     res.status(200).json({
       message: "🗑️ Sensor eliminado correctamente.",
       sensor: result.rows[0],
     });
+
   } catch (error) {
     console.error("❌ Error al eliminar sensor:", error);
     res.status(500).json({ error: "Error al eliminar el sensor." });
