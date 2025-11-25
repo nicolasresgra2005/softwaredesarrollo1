@@ -5,17 +5,6 @@ html, body {
 }
 
 /* CONTENEDOR PRINCIPAL */
-.perfil-page-container {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #4caf50, #2e7d32);
-  padding: 2rem 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  font-family: 'Poppins', sans-serif;
-}
-
-/* CARD DEL PERFIL */
 .perfil-container {
   background: rgba(255, 255, 255, 0.95);
   border-radius: 20px;
@@ -25,7 +14,8 @@ html, body {
   width: 95%;
   text-align: center;
   animation: fadeIn 0.8s ease;
-  margin-top: 2rem;
+  margin: 40px auto;
+  font-family: 'Poppins', sans-serif;
 }
 
 /* TITULO */
@@ -40,107 +30,121 @@ html, body {
   background: #f8f9fa;
   border-radius: 12px;
   padding: 20px;
-  margin-top: 15px;
   text-align: left;
 }
 
 .perfil-info p {
-  font-size: 1rem;
   margin: 8px 0;
-  color: #333;
-}
-
-.info-label {
-  font-weight: bold;
-  color: #2e7d32;
 }
 
 /* SECCIÓN DE SENSORES */
 .sensor-section {
   margin-top: 30px;
   padding-top: 20px;
-  border-top: 2px solid #e0e0e0;
+  border-top: 2px solid #eee;
 }
 
 .sensor-section h2 {
   color: #388e3c;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
-.sensor-section p {
-  color: #555;
-  font-size: 0.95rem;
+/* ITEM SENSOR */
+.sensor-item {
+  display: flex;
+  justify-content: space-between;  /* <- boton a la derecha */
+  align-items: center;
+  background: #f1f8f3;
+  padding: 15px;
+  border-radius: 12px;
   margin-bottom: 12px;
+  border: 1px solid #d6e8d8;
 }
 
-.sensor-section input {
-  padding: 10px;
-  width: 80%;
-  max-width: 260px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  outline: none;
-  transition: 0.3s;
-  font-family: inherit;
+.sensor-info p {
+  margin: 3px 0;
+  color: #333;
 }
 
-.sensor-section input:focus {
-  border-color: #2e7d32;
-  box-shadow: 0 0 5px rgba(46, 125, 50, 0.4);
-}
-
-/* BOTONES */
-.sensor-section button,
-.cerrar-sesion-btn {
-  margin-top: 15px;
-  padding: 10px 18px;
-  border-radius: 8px;
-  background: #2e7d32;
-  color: #fff;
+/* BOTON ⋮ */
+.options-button {
+  font-size: 22px;
+  background: transparent;
   border: none;
   cursor: pointer;
-  font-family: inherit;
-  font-size: 0.95rem;
+  padding: 8px;
+  margin-left: 10px;
+  border-radius: 50%;
+  transition: 0.2s;
+}
+
+.options-button:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+/* INPUTS */
+.sensor-section input {
+  display: block;
+  margin: 10px auto;
+  width: 80%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+/* BOTONES GENERALES */
+.sensor-section button {
+  padding: 10px 18px;
+  background: #2e7d32;
+  color: white;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
   transition: 0.3s;
 }
 
-.sensor-section button:hover,
-.cerrar-sesion-btn:hover {
+.sensor-section button:hover {
   background: #1b5e20;
 }
 
-/* BOTÓN ELIMINAR */
-.sensor-section .delete-btn {
-  background: #b71c1c;
+/* BOTON ELIMINAR */
+.btn-eliminar {
+  background: #b71c1c !important;
 }
 
-.sensor-section .delete-btn:hover {
+.btn-eliminar:hover {
+  background: #8b1111 !important;
+}
+
+/* TITULOS */
+.subtitulo {
+  margin-top: 20px;
+  color: #2e7d32;
+}
+
+.rojo {
+  color: #b71c1c !important;
+}
+
+/* BOTÓN CERRAR SESION */
+.cerrar-sesion-btn {
+  margin-top: 35px;
+  background: #b71c1c;
+  padding: 10px 18px;
+  border-radius: 8px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.cerrar-sesion-btn:hover {
   background: #8b1111;
 }
 
 /* ANIMACIÓN */
 @keyframes fadeIn {
-  from { 
-    opacity: 0; 
-    transform: translateY(-10px); 
-  }
-  to { 
-    opacity: 1; 
-    transform: translateY(0); 
-  }
-}
-
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  .perfil-container {
-    padding: 30px 20px;
-  }
-  
-  .perfil-container h1 {
-    font-size: 1.6rem;
-  }
-  
-  .sensor-section input {
-    width: 90%;
-  }
+  from {opacity: 0; transform: translateY(-10px);}
+  to {opacity: 1; transform: translateY(0);}
 }

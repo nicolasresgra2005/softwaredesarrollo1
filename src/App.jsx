@@ -8,6 +8,7 @@ import Header from "./pages/header";
 import Perfil from "./pages/Perfil";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import InterfaceSensor from "./pages/InterfaceSensor";
 
 function AppContent() {
   const location = useLocation();
@@ -33,6 +34,7 @@ function AppContent() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/Perfil" element={<Perfil />} />
+          <Route path="/sensor/:id" element={<InterfaceSensor />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
         </Routes>

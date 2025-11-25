@@ -1,0 +1,13 @@
+.sensor-container {
+  max-width: 850px;
+  margin: 40px auto;
+}
+
+.sensor-card {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  margin-bottom: 30px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.15);
+  text-align: center;
+}

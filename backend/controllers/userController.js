@@ -5,7 +5,9 @@ import nodemailer from "nodemailer";
 
 const JWT_SECRET = "Nicolas1912";
 
+// ===============================
 // 🟩 REGISTRAR USUARIO
+// ===============================
 export const registerUser = async (req, res) => {
   try {
     const {
@@ -53,10 +55,7 @@ export const registerUser = async (req, res) => {
     const user = result.rows[0];
 
     const token = jwt.sign(
-      {
-        id: user.Id_Usuario,
-        correo: user.Correo_Electronico_U,
-      },
+      { id: user.Id_Usuario, correo: user.Correo_Electronico_U },
       JWT_SECRET,
       { expiresIn: "2h" }
     );
@@ -72,7 +71,9 @@ export const registerUser = async (req, res) => {
   }
 };
 
+// ===============================
 // 🟨 LOGIN
+// ===============================
 export const loginUser = async (req, res) => {
   try {
     const { Correo_Electronico_U, Contraseña_U } = req.body;
@@ -121,7 +122,9 @@ export const loginUser = async (req, res) => {
   }
 };
 
+// ===============================
 // 🟧 RECUPERAR CONTRASEÑA
+// ===============================
 export const recuperarContraseña = async (req, res) => {
   try {
     const { Correo_Electronico_U } = req.body;
@@ -165,7 +168,9 @@ export const recuperarContraseña = async (req, res) => {
   }
 };
 
+// ===============================
 // 🆕 SOLICITAR RESET PASSWORD
+// ===============================
 export const solicitarResetPassword = async (req, res) => {
   try {
     const { Correo_Electronico_U } = req.body;
@@ -205,10 +210,9 @@ export const solicitarResetPassword = async (req, res) => {
       subject: "Restablecer tu contraseña - AgroSense",
       html: `
         <h2>Hola ${user.Primer_Nombre_U},</h2>
-        <p>Recibimos una solicitud para restablecer tu contraseña.</p>
-        <p>Haz clic en el siguiente enlace para cambiarla:</p>
+        <p>Haz clic en el siguiente enlace para cambiar tu contraseña:</p>
         <a href="${resetLink}">Restablecer contraseña</a>
-        <p>El enlace expirará en 15 minutos.</p>
+        <p>El enlace expira en 15 minutos.</p>
       `,
     };
 
@@ -219,13 +223,15 @@ export const solicitarResetPassword = async (req, res) => {
     });
   } catch (error) {
     console.error("❌ Error al enviar enlace:", error);
-    res
-      .status(500)
-      .json({ error: "Error al enviar el enlace de recuperación." });
+    res.status(500).json({
+      error: "Error al enviar el enlace de recuperación.",
+    });
   }
 };
 
+// ===============================
 // 🆕 RESET PASSWORD
+// ===============================
 export const resetPassword = async (req, res) => {
   try {
     const { token } = req.params;
@@ -239,29 +245,29 @@ export const resetPassword = async (req, res) => {
       [hashedPassword, decoded.id]
     );
 
-    res
-      .status(200)
-      .json({ message: "✅ Contraseña actualizada correctamente." });
+    res.status(200).json({
+      message: "✅ Contraseña actualizada correctamente.",
+    });
   } catch (error) {
     console.error("❌ Error al restablecer contraseña:", error);
     res.status(500).json({ error: "Token inválido o expirado." });
   }
 };
 
-// 🆕 AGREGAR SENSOR (Nombre_Lote + Tamaño_Lote)
+// ===============================
+// 🆕 AGREGAR SENSOR
+// ===============================
 export const agregarSensor = async (req, res) => {
   try {
     const { Id_Usuario, Ip_Sensor, Nombre_Lote, Tamano_Lote } = req.body;
 
-    console.log("📥 Datos recibidos:", req.body);
-
     if (!Id_Usuario || !Ip_Sensor || !Nombre_Lote || !Tamano_Lote) {
-      return res.status(400).json({ 
-        error: "Todos los campos (IP, nombre y tamaño del lote) son obligatorios." 
+      return res.status(400).json({
+        error: "Todos los campos (IP, nombre y tamaño del lote) son obligatorios.",
       });
     }
 
-    // Verificar si existe el usuario
+    // Verificar usuario
     const userCheck = await pool.query(
       'SELECT 1 FROM "Usuario" WHERE "Id_Usuario" = $1',
       [Id_Usuario]
@@ -271,7 +277,7 @@ export const agregarSensor = async (req, res) => {
       return res.status(404).json({ error: "Usuario no encontrado." });
     }
 
-    // Verificar si ya existe un sensor con la misma IP para ese usuario
+    // Verificar IP duplicada
     const sensorDuplicado = await pool.query(
       'SELECT 1 FROM "Sensor" WHERE "Id_Usuario" = $1 AND "Ip_Sensor" = $2',
       [Id_Usuario, Ip_Sensor]
@@ -279,35 +285,33 @@ export const agregarSensor = async (req, res) => {
 
     if (sensorDuplicado.rows.length > 0) {
       return res.status(400).json({
-        error: "⚠️ El usuario ya tiene un sensor con esta misma IP."
+        error: "⚠️ El usuario ya tiene un sensor con esta IP.",
       });
     }
 
-    // 👁️ IMPORTANTE: aquí usamos el nombre EXACTO de la tabla
     const nuevo = await pool.query(
       `INSERT INTO "Sensor" ("Ip_Sensor", "Id_Usuario", "Nombre_Lote", "Tamaño_Lote")
        VALUES ($1, $2, $3, $4)
        RETURNING *`,
-      [Ip_Sensor, Id_Usuario, Nombre_Lote, Tamano_Lote]  // Mantén Tamano_Lote en body
+      [Ip_Sensor, Id_Usuario, Nombre_Lote, Tamano_Lote]
     );
 
     res.status(201).json({
       message: "✅ Sensor agregado correctamente.",
       sensor: nuevo.rows[0],
     });
-
   } catch (error) {
     console.error("❌ Error al agregar sensor:", error);
     res.status(500).json({ error: "Error al agregar el sensor." });
   }
 };
 
+// ===============================
 // 🗑️ ELIMINAR SENSOR POR IP
+// ===============================
 export const eliminarSensor = async (req, res) => {
   try {
     const { Ip_Sensor } = req.params;
-
-    console.log("📥 IP recibida en URL para eliminar:", Ip_Sensor);
 
     if (!Ip_Sensor) {
       return res.status(400).json({ error: "IP no recibida en la URL" });
@@ -328,14 +332,38 @@ export const eliminarSensor = async (req, res) => {
       message: "🗑️ Sensor eliminado correctamente.",
       sensor: result.rows[0],
     });
-
   } catch (error) {
     console.error("❌ Error al eliminar sensor:", error);
     res.status(500).json({ error: "Error al eliminar el sensor." });
   }
 };
 
-// 🟦 OBTENER SENSORES
+// ===============================
+// 🟪 OBTENER SENSOR POR ID
+// ===============================
+export const obtenerSensorPorId = async (req, res) => {
+  try {
+    const { Id_Sensor } = req.params;
+
+    const result = await pool.query(
+      'SELECT * FROM "Sensor" WHERE "Id_Sensor" = $1',
+      [Id_Sensor]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Sensor no encontrado" });
+    }
+
+    res.status(200).json(result.rows[0]);
+  } catch (error) {
+    console.error("❌ Error al obtener sensor por ID:", error);
+    res.status(500).json({ error: "Error al obtener el sensor" });
+  }
+};
+
+// ===============================
+// 🟦 OBTENER TODOS LOS SENSORES
+// ===============================
 export const obtenerSensores = async (req, res) => {
   try {
     const { Id_Usuario } = req.params;
@@ -349,5 +377,30 @@ export const obtenerSensores = async (req, res) => {
   } catch (error) {
     console.error("❌ Error al obtener sensores:", error);
     res.status(500).json({ error: "Error al obtener sensores" });
+  }
+};
+
+// ===============================
+// 🟩 OBTENER DATOS DEL SENSOR
+// ===============================
+export const obtenerDatosSensor = async (req, res) => {
+  try {
+    const { Id_Sensor } = req.params;
+
+    const result = await pool.query(
+      `SELECT * FROM "Datos_Sensor" 
+       WHERE "Id_Sensor" = $1
+       ORDER BY "Fecha_Registro" ASC`,
+      [Id_Sensor]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "No hay datos para este sensor." });
+    }
+
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error("❌ Error al obtener datos del sensor:", error);
+    res.status(500).json({ error: "Error al obtener los datos del sensor." });
   }
 };
