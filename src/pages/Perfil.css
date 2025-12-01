@@ -1,31 +1,54 @@
-/* HABILITAR SCROLL GLOBAL */
 html, body {
   height: 100%;
   overflow-y: auto !important;
 }
 
-/* CONTENEDOR PRINCIPAL */
+/* 🔹 Fondo idéntico al login */
+.perfil-fondo {
+  min-height: 100vh;
+  width: 100%;
+  background-image: url('../assets/FondoLogin.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 40px;
+}
+
+/* 🔹 Caja principal con animación centrada */
 .perfil-container {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.85);
   border-radius: 20px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   padding: 40px 60px;
   max-width: 600px;
   width: 95%;
   text-align: center;
-  animation: fadeIn 0.8s ease;
-  margin: 40px auto;
+  animation: fadeInCentered 0.6s ease-in-out;
   font-family: 'Poppins', sans-serif;
 }
 
-/* TITULO */
+/* 💚 misma animación que login */
+@keyframes fadeInCentered {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .perfil-container h1 {
   font-size: 2rem;
   color: #2e7d32;
   margin-bottom: 20px;
 }
 
-/* INFO DEL USUARIO */
 .perfil-info {
   background: #f8f9fa;
   border-radius: 12px;
@@ -37,7 +60,6 @@ html, body {
   margin: 8px 0;
 }
 
-/* SECCIÓN DE SENSORES */
 .sensor-section {
   margin-top: 30px;
   padding-top: 20px;
@@ -49,10 +71,9 @@ html, body {
   margin-bottom: 20px;
 }
 
-/* ITEM SENSOR */
 .sensor-item {
   display: flex;
-  justify-content: space-between;  /* <- boton a la derecha */
+  justify-content: space-between;
   align-items: center;
   background: #f1f8f3;
   padding: 15px;
@@ -66,7 +87,6 @@ html, body {
   color: #333;
 }
 
-/* BOTON ⋮ */
 .options-button {
   font-size: 22px;
   background: transparent;
@@ -82,7 +102,6 @@ html, body {
   background: rgba(0, 0, 0, 0.08);
 }
 
-/* INPUTS */
 .sensor-section input {
   display: block;
   margin: 10px auto;
@@ -92,7 +111,6 @@ html, body {
   border: 1px solid #ccc;
 }
 
-/* BOTONES GENERALES */
 .sensor-section button {
   padding: 10px 18px;
   background: #2e7d32;
@@ -108,7 +126,6 @@ html, body {
   background: #1b5e20;
 }
 
-/* BOTON ELIMINAR */
 .btn-eliminar {
   background: #b71c1c !important;
 }
@@ -117,7 +134,6 @@ html, body {
   background: #8b1111 !important;
 }
 
-/* TITULOS */
 .subtitulo {
   margin-top: 20px;
   color: #2e7d32;
@@ -127,7 +143,6 @@ html, body {
   color: #b71c1c !important;
 }
 
-/* BOTÓN CERRAR SESION */
 .cerrar-sesion-btn {
   margin-top: 35px;
   background: #b71c1c;
@@ -141,10 +156,4 @@ html, body {
 
 .cerrar-sesion-btn:hover {
   background: #8b1111;
-}
-
-/* ANIMACIÓN */
-@keyframes fadeIn {
-  from {opacity: 0; transform: translateY(-10px);}
-  to {opacity: 1; transform: translateY(0);}
 }

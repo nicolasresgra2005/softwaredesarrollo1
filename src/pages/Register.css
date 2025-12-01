@@ -113,3 +113,26 @@
   border-color: #2e7d32 !important;
   box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.2);
 }
+
+/* ========================================================= */
+/* ✨ A PARTIR DE AQUÍ SOLO AGREGO VALIDACIONES VISUALES — SIN ROMPER TU ESTILO */
+/* ========================================================= */
+
+/* 🔴 Mensaje de error */
+.error-msg {
+  color: #c62828;
+  font-size: 13px;
+  margin-top: 2px;
+  text-align: left;
+  margin-bottom: 6px;
+}
+
+/* 🔴 Input en error - borde fino */
+.input-error {
+  border: 1px solid #d32f2f !important;
+}
+
+/* 🟢 Input válido */
+.input-ok {
+  border: 1px solid #2e7d32 !important;
+}

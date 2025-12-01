@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import API from "../api";
 import "./Login.css";
 import { Link, useNavigate } from "react-router-dom"; // ✅ Importamos Link y useNavigate
@@ -11,6 +11,13 @@ const Login = () => {
 
   const [message, setMessage] = useState("");
   const navigate = useNavigate(); // ✅ Para redirigir después del login
+
+  // ✅ Si ya hay sesión activa, saltarse el login
+  useEffect(() => {
+    if (localStorage.getItem("userLogged")) {
+      navigate("/perfil");
+    }
+  }, [navigate]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -25,6 +32,7 @@ const Login = () => {
       // ✅ Guardamos token y usuario en el almacenamiento local
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("usuario", JSON.stringify(res.data.user));
+      localStorage.setItem("userLogged", true); // 🔥 Marca de sesión activa
 
       // ✅ Redirige al perfil usando React Router
       navigate("/perfil");

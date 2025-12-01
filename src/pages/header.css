@@ -55,6 +55,9 @@
   text-decoration: none;
   transition: background 0.3s ease, transform 0.2s;
   opacity: 1;
+
+  /* ✅ agregado para que TODOS los botones tengan animación al aparecer */
+  animation: fadeInNav 0.4s ease forwards;
 }
 
 /* Animación hover */
@@ -63,7 +66,6 @@
   transform: scale(1.05);
 }
 
-/* 🔹 Animaciones suaves al aparecer/desaparecer */
 @keyframes fadeInNav {
   from {
     opacity: 0;
@@ -86,7 +88,7 @@
   }
 }
 
-/* 🔹 Estados por ruta (no toco JSX, esto se maneja por pathname desde React) */
+/* 🔹 Estados por ruta (NO tocamos JSX) */
 body.home .nav .nav-btn[href="/"] {
   display: none;
 }
@@ -99,7 +101,12 @@ body.register .nav .nav-btn[href="/register"] {
   display: none;
 }
 
-/* 🔹 Transición visual al cambiar */
+/* 🔥 NUEVO — Si ya estás en perfil, no mostrar botón Perfil */
+body.perfil .nav .nav-btn[href="/perfil"] {
+  display: none;
+}
+
+/* Transición visual al cambiar */
 body .nav .nav-btn {
   animation: fadeInNav 0.4s ease forwards;
 }

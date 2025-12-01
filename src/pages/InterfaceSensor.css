@@ -1,13 +1,50 @@
-.sensor-container {
-  max-width: 850px;
-  margin: 40px auto;
+/* 🔹 Fondo global igual al login */
+html, body {
+  min-height: 100vh;
+  background-image: url('../assets/FondoHome.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  margin: 0;
+  padding: 0;
 }
 
+/* 🔹 Contenedor principal */
+.sensor-container { 
+  max-width: 850px;
+  margin: 40px auto;
+  text-align: center;
+
+  /* 👇 Animación centrada igual al login */
+  animation: fadeInCentered 0.6s ease-in-out;
+}
+
+/* 🔹 Tarjetas (igual estilo cajas perfil/login) */
 .sensor-card {
-  background: white;
+  background: rgba(255, 255, 255, 0.85);
   padding: 25px;
   border-radius: 15px;
   margin-bottom: 30px;
   box-shadow: 0px 4px 10px rgba(0,0,0,0.15);
-  text-align: center;
+  backdrop-filter: blur(4px);
+}
+
+/* 🔹 Título */
+.sensor-card h1, 
+.sensor-card h2 {
+  color: #2e7d32;
+  font-weight: 700;
+}
+
+/* 🔹 Animación centrada del login aplicada aquí igual */
+@keyframes fadeInCentered {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
