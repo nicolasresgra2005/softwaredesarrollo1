@@ -100,6 +100,19 @@ const InterfaceSensor = () => {
     ]
   };
 
+  // =============================
+  // 🔥 RESTAURADO: Control del LED
+  // =============================
+  const enviarComandoLED = async (cmd) => {
+    await fetch("http://192.168.20.13:3000/led", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ comando: cmd })
+    });
+
+    alert("Comando enviado: " + cmd);
+  };
+
   return (
     <div className="sensor-container">
       <div className="sensor-card">
@@ -107,6 +120,25 @@ const InterfaceSensor = () => {
         <p><strong>IP:</strong> {sensor.Ip_Sensor}</p>
         <p><strong>Nombre Lote:</strong> {sensor.Nombre_Lote}</p>
         <p><strong>Tamaño Lote:</strong> {sensor.Tamaño_Lote}</p>
+      </div>
+
+      {/* 🔥 RESTAURADO: BLOQUE DEL CONTROL LED */}
+      <div className="sensor-card">
+        <h2>Control LED</h2>
+
+        <button
+          onClick={() => enviarComandoLED("ON")}
+          style={{ padding: "10px", margin: "5px", background: "green", color: "white" }}
+        >
+          Encender LED
+        </button>
+
+        <button
+          onClick={() => enviarComandoLED("OFF")}
+          style={{ padding: "10px", margin: "5px", background: "red", color: "white" }}
+        >
+          Apagar LED
+        </button>
       </div>
 
       <div className="sensor-card">
