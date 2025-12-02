@@ -44,7 +44,9 @@ app.get("/test", async (req, res) => {
 app.use("/api/users", userRoutes);
 
 // 🔥 INICIAR MONITOR DE ALERTAS PARA LOS SENSORES
+if (process.env.NODE_ENV !== "production") {
 startMonitor();
+}
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () =>
