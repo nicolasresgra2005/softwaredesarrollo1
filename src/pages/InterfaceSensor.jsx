@@ -284,10 +284,10 @@ const InterfaceSensor = () => {
       </div>
 
       <div className="sensor-card">
-        <h2>Control LED</h2>
+        <h2>Control Motoboma</h2>
 
-        <button onClick={() => enviarComandoLED("ON")} className="btn-led-on">Encender LED</button>
-        <button onClick={() => enviarComandoLED("OFF")} className="btn-led-off">Apagar LED</button>
+        <button onClick={() => enviarComandoLED("ON")} className="btn-led-on">Encender Motobomba</button>
+        <button onClick={() => enviarComandoLED("OFF")} className="btn-led-off">Apagar Motobomba</button>
       </div>
 
       <div className="sensor-card">
