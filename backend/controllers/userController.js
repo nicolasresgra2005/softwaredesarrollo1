@@ -41,15 +41,14 @@ export const registerUser = async (req, res) => {
 
     const result = await pool.query(
       `INSERT INTO "Usuario" 
-        ("Primer_Nombre_U", "Primer_Apellido_U", "Correo_Electronico_U", "Contraseña_U", "Contrasena_Plana")
-       VALUES ($1, $2, $3, $4, $5)
+        ("Primer_Nombre_U", "Primer_Apellido_U", "Correo_Electronico_U", "Contraseña_U")
+       VALUES ($1, $2, $3, $4)
        RETURNING *`,
       [
         Primer_Nombre_U,
         Primer_Apellido_U,
         Correo_Electronico_U,
-        hashedPassword,
-        Contraseña_U.trim(), // 🔥 Se guarda SIN ESPACIOS
+        hashedPassword
       ]
     );
 
