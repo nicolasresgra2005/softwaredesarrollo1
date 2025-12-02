@@ -48,3 +48,68 @@ html, body {
     transform: scale(1);
   }
 }
+
+/* ==========================
+   Estilos para límites
+   ========================== */
+
+.titulo-limites {
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+.limites-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-bottom: 20px;
+}
+
+.limite-label {
+  font-weight: 600;
+  font-size: 15px;
+  color: #1b5e20;
+  text-align: left;
+}
+
+.limite-input {
+  padding: 10px;
+  font-size: 15px;
+  border-radius: 8px;
+  border: 1px solid #468847;
+  background: white;
+  width: 100%;
+}
+ 
+.guardar-btn {
+  margin-top: 10px;
+  background: #1f8a35;
+  color: white;
+  font-size: 16px;
+  padding: 10px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  transition: 0.3s;
+}
+
+.guardar-btn:hover {
+  background: #156628;
+}
+
+/* ==========================
+   📩 ESTILO DEL MENSAJE DE ÉXITO
+   ========================== */
+
+.limite-mensaje-exito {
+  background: #d7ffd9;
+  border-left: 5px solid #2e7d32;
+  padding: 12px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  color: #2e7d32;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 6px;
+  text-align: center;
+}

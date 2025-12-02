@@ -9,7 +9,9 @@ import {
   eliminarSensor, 
   obtenerSensores,
   obtenerSensorPorId,
-  obtenerDatosSensor
+  obtenerDatosSensor,
+  actualizarLimitesSensor,
+  obtenerLimitesSensor 
 } from "../controllers/userController.js";
 
 const router = express.Router();
@@ -53,6 +55,11 @@ router.get("/sensores/detalle/:Id_Sensor", obtenerSensorPorId);
 // Obtener historial (tabla Datos_Sensor)
 router.get("/sensores/datos/:Id_Sensor", obtenerDatosSensor);
 
+// Guardar / actualizar límites del sensor
+router.post("/sensores/limites/:Id_Sensor", actualizarLimitesSensor);
+
+// Obtener límites de un sensor
+router.get("/sensores/limites/:Id_Sensor", obtenerLimitesSensor);
 
 // ========================
 // 🧪 RUTA DE PRUEBA

@@ -5,7 +5,10 @@ dotenv.config(); // carga las variables primero
 import express from "express";
 import cors from "cors";
 import userRoutes from "./routes/userRoutes.js";
-import pool from "./config/db.js"; 
+import pool from "./config/db.js";
+
+// 🔥 IMPORTANTE: importar el monitor de alertas
+import startMonitor from "./jobs/monitor.js";
 
 // 🔥 MOSTRAR ERRORES OCULTOS (NECESARIO)
 process.on("uncaughtException", (err) => {
@@ -39,6 +42,9 @@ app.get("/test", async (req, res) => {
 });
 
 app.use("/api/users", userRoutes);
+
+// 🔥 INICIAR MONITOR DE ALERTAS PARA LOS SENSORES
+startMonitor();
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () =>
