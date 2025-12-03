@@ -25,10 +25,58 @@ El usuario accede a la plataforma mediante la web:
 2. Iniciar sesión  
 3. Visualizar los datos ambientales en tiempo real
 
-## Backend
+## Estructura
+
+## Estructura del Proyecto
 
 ```bash
-cd backend
-npm install
-npm run dev
+agro-sense/
+│
+├── backend/
+│   ├── config/
+│   │   └── db.js
+│   │
+│   ├── controllers/
+│   │   └── userController.js
+│   │
+│   ├── jobs/
+│   │   └── monitor.js
+│   │
+│   ├── routes/
+│   │
+│   ├── services/
+│   │
+│   ├── .env
+│   ├── index.js
+│   ├── package.json
+│   ├── package-lock.json
+│   └── node_modules/
+│
+├── public/
+│   └── vite.svg
+│
+├── src/
+│   ├── assets/
+│   │
+│   ├── backend/
+│   │
+│   └── pages/
+│       ├── ForgotPassword.css
+│       ├── ForgotPassword.jsx
+│       ├── header.css
+│       ├── header.jsx
+│       ├── Home.css
+│       ├── Home.jsx
+│       ├── InterfaceSensor.css
+│       ├── InterfaceSensor.jsx
+│       ├── Login.css
+│       ├── Login.jsx
+│       ├── Perfil.css
+│       └── Perfil.jsx
+│
+├── package.json
+└── node_modules/
+
+
+
 
