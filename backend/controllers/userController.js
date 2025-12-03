@@ -6,7 +6,7 @@ import nodemailer from "nodemailer";
 const JWT_SECRET = "Nicolas1912";
 
 // ===============================
-// 🟩 REGISTRAR USUARIO
+// REGISTRAR USUARIO
 // ===============================
 export const registerUser = async (req, res) => {
   try {
@@ -72,7 +72,7 @@ export const registerUser = async (req, res) => {
 };
 
 // ===============================
-// 🟨 LOGIN
+// LOGIN
 // ===============================
 export const loginUser = async (req, res) => {
   try {
@@ -123,7 +123,7 @@ export const loginUser = async (req, res) => {
 };
 
 // ===============================
-// 🟧 RECUPERAR CONTRASEÑA (CORREGIDO)
+// RECUPERAR CONTRASEÑA (CORREGIDO)
 // ===============================
 export const recuperarContraseña = async (req, res) => {
   try {
@@ -172,7 +172,7 @@ export const recuperarContraseña = async (req, res) => {
 };
 
 // ===============================
-// 🆕 SOLICITAR RESET PASSWORD
+// SOLICITAR RESET PASSWORD
 // ===============================
 export const solicitarResetPassword = async (req, res) => {
   try {
@@ -202,8 +202,8 @@ export const solicitarResetPassword = async (req, res) => {
       port: 465,
       secure: true,
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASS,
       },
     });
 
@@ -233,7 +233,7 @@ export const solicitarResetPassword = async (req, res) => {
 };
 
 // ===============================
-// 🆕 RESET PASSWORD
+// RESET PASSWORD
 // ===============================
 export const resetPassword = async (req, res) => {
   try {
@@ -258,8 +258,7 @@ export const resetPassword = async (req, res) => {
 };
 
 // ===============================
-// 🆕 AGREGAR SENSOR
-// (aquí NO se tocó nada)
+// AGREGAR SENSOR
 // ===============================
 export const agregarSensor = async (req, res) => {
   try {
@@ -310,7 +309,6 @@ export const agregarSensor = async (req, res) => {
 
 // ===============================
 // ELIMINAR – OBTENER – LÍMITES – ALERTAS
-// (toda esta parte quedó igual, no se tocó)
 // ===============================
 
 export const eliminarSensor = async (req, res) => {
@@ -390,7 +388,7 @@ export const obtenerDatosSensor = async (req, res) => {
     );
 
     if (result.rows.length === 0) {
-      return res.status(404).json({ error: "No hay datos para este sensor." });
+      return res.status(200).json([]);
     }
 
     res.status(200).json(result.rows);
@@ -456,19 +454,22 @@ export const obtenerLimitesSensor = async (req, res) => {
 };
 
 // ===============================
-// 📧 FUNCIÓN PARA ENVIAR ALERTAS
+// FUNCIÓN PARA ENVIAR ALERTAS
 // ===============================
 export const enviarAlertaLimite = async (correo, tipo, valor, minimo, maximo) => {
   try {
     const transporter = nodemailer.createTransport({
-      service: "gmail",
-      port: 465,
-      secure: true,
-      auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_PASS,
-      },
-    });
+    host: process.env.MAIL_HOST,
+    port: process.env.MAIL_PORT,
+    secure: false,
+    auth: {
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_PASS,
+  },
+  tls: {
+    rejectUnauthorized: false
+  }
+});
 
     const mailOptions = {
       from: process.env.GMAIL_USER,
@@ -482,6 +483,7 @@ export const enviarAlertaLimite = async (correo, tipo, valor, minimo, maximo) =>
       `,
     };
 
+    console.log("🚀 ENVIANDO ALERTA A:", correo);
     await transporter.sendMail(mailOptions);
     console.log("📧 Alerta enviada correctamente");
   } catch (error) {

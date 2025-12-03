@@ -62,7 +62,7 @@ router.post("/sensores/limites/:Id_Sensor", actualizarLimitesSensor);
 router.get("/sensores/limites/:Id_Sensor", obtenerLimitesSensor);
 
 // ========================
-// 🧪 RUTA DE PRUEBA
+// RUTA DE PRUEBA
 // ========================
 router.get("/test", (req, res) => {
   res.send("✅ Ruta de usuarios funcionando");

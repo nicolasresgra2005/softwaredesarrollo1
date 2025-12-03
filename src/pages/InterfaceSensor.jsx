@@ -177,21 +177,22 @@ const InterfaceSensor = () => {
   // =============================
   // Preparar gráficas
   // =============================
-  const labels = datos.map((d) =>
-    new Date(d.Fecha_Registro).toLocaleTimeString()
-  );
+  if (!datos || datos.length === 0) {
+    return (
+    <div className="sensor-container">
+      <div className="sensor-card">
+        <h1>Sensor {sensor.Id_Sensor}</h1>
+        <p><strong>IP:</strong> {sensor.Ip_Sensor}</p>
+        <p><strong>Nombre Lote:</strong> {sensor.Nombre_Lote}</p>
+        <p><strong>Tamaño Lote:</strong> {sensor.Tamaño_Lote}</p>
+      </div>
 
-  const humedadData = {
-    labels,
-    datasets: [
-      {
-        label: "Humedad",
-        data: datos.map((d) => d.Nivel_Humedad),
-        borderColor: "blue",
-        tension: 0.3
-      }
-    ]
-  };
+      <div className="sensor-card" style={{ textAlign:"center", fontSize:"18px" }}>
+        📭 Este sensor aún no tiene datos registrados.
+      </div>
+    </div>
+  );
+}
 
   const temperaturaData = {
     labels,

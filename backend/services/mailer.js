@@ -10,8 +10,8 @@ const transporter = nodemailer.createTransport({
   port: process.env.MAIL_PORT,
   secure: false,
   auth: {
-    user: process.env.MAIL_USER,
-    pass: process.env.MAIL_PASS,
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_PASS,
   },
 });
 
@@ -19,7 +19,7 @@ const transporter = nodemailer.createTransport({
 const sendEmail = async (to, subject, html) => {
   try {
     const info = await transporter.sendMail({
-      from: `"Soporte" <${process.env.MAIL_USER}>`,
+      from: `"Soporte" <${process.env.GMAIL_USER}>`,
       to,
       subject,
       html,

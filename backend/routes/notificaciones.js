@@ -6,17 +6,39 @@ const router = express.Router();
 
 router.post("/alerta", async (req, res) => {
   try {
-    const { email, mensaje } = req.body;
+    console.log("📥 Body recibido:", req.body);
+
+    let { email, mensaje, tipo, valor, limite, sensorId } = req.body;
+
+    // Si no viene "mensaje" lo generamos
+    if (!mensaje && tipo && valor !== undefined && limite !== undefined) {
+      mensaje = `⚠ ${tipo}<br>Valor actual: ${valor}<br>Límite configurado: ${limite}<br>Sensor: ${sensorId}`;
+    }
+
+    // Si no viene email, buscamos el email asociado al sensor
+    if (!email) {
+
+      // ⚠ OJO — aquí debes agregar la consulta real a DB
+      // por ahora TEMPORAL:
+      email = "agrosenseds@gmail.com"; 
+      
+      console.log("📨 usando email por defecto:", email);
+    }
 
     if (!email || !mensaje) {
-      return res.status(400).json({ error: "Faltan datos" });
+      return res.status(400).json({ error: "Faltan datos para enviar correo" });
     }
+
+    console.log("📨 enviando correo a:", email);
+    console.log("📝 mensaje:", mensaje);
 
     await sendMail(
       email,
-      "⚠ ALERTA: Límite superado",
+      `⚠ ALERTA: ${tipo}`,
       `<p>${mensaje}</p>`
     );
+
+    console.log("📧 correo enviado correctamente!");
 
     res.json({ ok: true, msg: "Correo enviado" });
   } catch (error) {
