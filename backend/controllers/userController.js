@@ -344,6 +344,8 @@ export const obtenerSensorPorId = async (req, res) => {
   try {
     const { Id_Sensor } = req.params;
 
+    console.log("📥 Parámetros recibidos:", req.params); // ← CORREGIDO
+
     const result = await pool.query(
       'SELECT * FROM "Sensor" WHERE "Id_Sensor" = $1',
       [Id_Sensor]
@@ -364,6 +366,8 @@ export const obtenerSensores = async (req, res) => {
   try {
     const { Id_Usuario } = req.params;
 
+    console.log("📥 Parámetros recibidos:", req.params); // ← CORREGIDO
+
     const result = await pool.query(
       'SELECT * FROM "Sensor" WHERE "Id_Usuario" = $1',
       [Id_Usuario]
@@ -379,6 +383,8 @@ export const obtenerSensores = async (req, res) => {
 export const obtenerDatosSensor = async (req, res) => {
   try {
     const { Id_Sensor } = req.params;
+
+    console.log("📥 Parámetros recibidos:", req.params); // ← CORREGIDO
 
     const result = await pool.query(
       `SELECT * FROM "Datos_Sensor" 
@@ -436,6 +442,8 @@ export const actualizarLimitesSensor = async (req, res) => {
 export const obtenerLimitesSensor = async (req, res) => {
   try {
     const { Id_Sensor } = req.params;
+
+    console.log("📥 Parámetros recibidos:", req.params); // ← CORREGIDO
 
     const result = await pool.query(
       `SELECT "Temp_Min", "Temp_Max", "Hum_Min", "Hum_Max"

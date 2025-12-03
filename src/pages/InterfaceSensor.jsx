@@ -64,9 +64,6 @@ const InterfaceSensor = () => {
         const data = await res.json();
         setDatos(data);
 
-        // =============================
-        // 🔔 VALIDAR LÍMITES Y ENVIAR ALERTA
-        // =============================
         if (
           data &&
           data.length > 0 &&
@@ -76,9 +73,8 @@ const InterfaceSensor = () => {
           tempMax &&
           tempMin
         ) {
-          const ultima = data[data.length - 1]; // última lectura
+          const ultima = data[data.length - 1];
 
-          // HUMEDAD ALTA
           if (ultima.Nivel_Humedad > humMax) {
             enviarCorreo(
               sensor.Correo_Electronico_U,
@@ -88,7 +84,6 @@ const InterfaceSensor = () => {
             );
           }
 
-          // HUMEDAD BAJA
           if (ultima.Nivel_Humedad < humMin) {
             enviarCorreo(
               sensor.Correo_Electronico_U,
@@ -98,7 +93,6 @@ const InterfaceSensor = () => {
             );
           }
 
-          // TEMPERATURA ALTA
           if (ultima.Nivel_Temperatura > tempMax) {
             enviarCorreo(
               sensor.Correo_Electronico_U,
@@ -108,7 +102,6 @@ const InterfaceSensor = () => {
             );
           }
 
-          // TEMPERATURA BAJA
           if (ultima.Nivel_Temperatura < tempMin) {
             enviarCorreo(
               sensor.Correo_Electronico_U,
@@ -126,9 +119,6 @@ const InterfaceSensor = () => {
     fetchDatos();
   }, [id, sensor, humMax, humMin, tempMax, tempMin]);
 
-  // =============================
-  // 🔔 FUNCIÓN PARA ENVIAR CORREO
-  // =============================
   const enviarCorreo = async (correo, tipo, valor, limite) => {
     try {
       await fetch("http://localhost:5000/api/notificaciones/alerta", {
@@ -147,9 +137,6 @@ const InterfaceSensor = () => {
     }
   };
 
-  // =============================
-  // 3. Cargar límites existentes
-  // =============================
   useEffect(() => {
     const fetchLimites = async () => {
       try {
@@ -174,9 +161,6 @@ const InterfaceSensor = () => {
   if (mensaje) return <h2 style={{ color: "red", textAlign: "center" }}>{mensaje}</h2>;
   if (!sensor) return <h2 style={{ textAlign: "center" }}>Cargando sensor...</h2>;
 
-  // =============================
-  // Preparar gráficas
-  // =============================
   if (!datos || datos.length === 0) {
     return (
     <div className="sensor-container">
@@ -194,110 +178,123 @@ const InterfaceSensor = () => {
   );
 }
 
-  const temperaturaData = {
-    labels,
-    datasets: [
-      {
-        label: "Temperatura",
-        data: datos.map((d) => d.Nivel_Temperatura),
-        borderColor: "red",
-        tension: 0.3
-      }
-    ]
-  };
+const labels = datos.map(d => 
+  d.Fecha_Registro ? new Date(d.Fecha_Registro).toLocaleTimeString() : ""
+);
 
-  // =============================
-  // 🔥 CONTROL DEL LED
-  // =============================
-  const enviarComandoLED = async (cmd) => {
-    await fetch("http://192.168.20.13:3000/led", {
+// =============================
+// 🟩 AQUÍ AGREGO LO QUE FALTABA
+// =============================
+const humedadData = {
+  labels,
+  datasets: [
+    {
+      label: "Humedad",
+      data: datos.map((d) => d.Nivel_Humedad),
+      borderColor: "blue",
+      tension: 0.3
+    }
+  ]
+};
+
+const temperaturaData = {
+  labels,
+  datasets: [
+    {
+      label: "Temperatura",
+      data: datos.map((d) => d.Nivel_Temperatura),
+      borderColor: "red",
+      tension: 0.3
+    }
+  ]
+};
+
+const enviarComandoLED = async (cmd) => {
+  await fetch("http://192.168.20.13:3000/led", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ comando: cmd })
+  });
+
+  alert("Comando enviado: " + cmd);
+};
+
+const guardarLimites = async () => {
+  if (tempMin === "" || tempMax === "" || humMin === "" || humMax === "") {
+    setMensaje("⚠️ Debes completar todos los campos de límites.");
+    return;
+  }
+
+  try {
+    const res = await fetch(`http://localhost:5000/api/users/sensores/limites/${id}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ comando: cmd })
+      body: JSON.stringify({
+        tempMin,
+        tempMax,
+        humMin,
+        humMax
+      })
     });
 
-    alert("Comando enviado: " + cmd);
-  };
+    if (!res.ok) throw new Error("Error guardando límites");
 
-  // =============================
-  // 💾 GUARDAR LÍMITES
-  // =============================
-  const guardarLimites = async () => {
-    if (tempMin === "" || tempMax === "" || humMin === "" || humMax === "") {
-      setMensaje("⚠️ Debes completar todos los campos de límites.");
-      return;
-    }
+    setMensaje("✅ Límites guardados correctamente");
+  } catch (error) {
+    console.error("❌ Error guardando límites:", error);
+    setMensaje("❌ No se pudieron guardar los límites.");
+  }
+};
 
-    try {
-      const res = await fetch(`http://localhost:5000/api/users/sensores/limites/${id}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          tempMin,
-          tempMax,
-          humMin,
-          humMax
-        })
-      });
-
-      if (!res.ok) throw new Error("Error guardando límites");
-
-      setMensaje("✅ Límites guardados correctamente");
-    } catch (error) {
-      console.error("❌ Error guardando límites:", error);
-      setMensaje("❌ No se pudieron guardar los límites.");
-    }
-  };
-
-  return (
-    <div className="sensor-container">
-      <div className="sensor-card">
-        <h1>Sensor {sensor.Id_Sensor}</h1>
-        <p><strong>IP:</strong> {sensor.Ip_Sensor}</p>
-        <p><strong>Nombre Lote:</strong> {sensor.Nombre_Lote}</p>
-        <p><strong>Tamaño Lote:</strong> {sensor.Tamaño_Lote}</p>
-      </div>
-
-      <div className="sensor-card">
-        <h2 className="titulo-limites">Configurar Límites</h2>
-
-        {mensaje && (
-          <div className="limite-mensaje-exito">
-            {mensaje}
-          </div>
-        )}
-
-        <div className="limites-container">
-          <label className="limite-label">Temperatura Mínima</label>
-          <input type="number" className="limite-input" value={tempMin} onChange={(e) => setTempMin(e.target.value)} />
-
-          <label className="limite-label">Temperatura Máxima</label>
-          <input type="number" className="limite-input" value={tempMax} onChange={(e) => setTempMax(e.target.value)} />
-
-          <label className="limite-label">Humedad Mínima</label>
-          <input type="number" className="limite-input" value={humMin} onChange={(e) => setHumMin(e.target.value)} />
-
-          <label className="limite-label">Humedad Máxima</label>
-          <input type="number" className="limite-input" value={humMax} onChange={(e) => setHumMax(e.target.value)} />
-        </div>
-
-        <button className="guardar-btn" onClick={guardarLimites}>Guardar Límites</button>
-      </div>
-
-      <div className="sensor-card">
-        <h2>Control Motoboma</h2>
-
-        <button onClick={() => enviarComandoLED("ON")} className="btn-led-on">Encender Motobomba</button>
-        <button onClick={() => enviarComandoLED("OFF")} className="btn-led-off">Apagar Motobomba</button>
-      </div>
-
-      <div className="sensor-card">
-        <h2>Gráficas</h2>
-        <Line data={humedadData} />
-        <Line data={temperaturaData}  />
-      </div>
+return (
+  <div className="sensor-container">
+    <div className="sensor-card">
+      <h1>Sensor {sensor.Id_Sensor}</h1>
+      <p><strong>IP:</strong> {sensor.Ip_Sensor}</p>
+      <p><strong>Nombre Lote:</strong> {sensor.Nombre_Lote}</p>
+      <p><strong>Tamaño Lote:</strong> {sensor.Tamaño_Lote}</p>
     </div>
-  );
+
+    <div className="sensor-card">
+      <h2 className="titulo-limites">Configurar Límites</h2>
+
+      {mensaje && (
+        <div className="limite-mensaje-exito">
+          {mensaje}
+        </div>
+      )}
+
+      <div className="limites-container">
+        <label className="limite-label">Temperatura Mínima</label>
+        <input type="number" className="limite-input" value={tempMin} onChange={(e) => setTempMin(e.target.value)} />
+
+        <label className="limite-label">Temperatura Máxima</label>
+        <input type="number" className="limite-input" value={tempMax} onChange={(e) => setTempMax(e.target.value)} />
+
+        <label className="limite-label">Humedad Mínima</label>
+        <input type="number" className="limite-input" value={humMin} onChange={(e) => setHumMin(e.target.value)} />
+
+        <label className="limite-label">Humedad Máxima</label>
+        <input type="number" className="limite-input" value={humMax} onChange={(e) => setHumMax(e.target.value)} />
+      </div>
+
+      <button className="guardar-btn" onClick={guardarLimites}>Guardar Límites</button>
+    </div>
+
+    <div className="sensor-card">
+      <h2>Control Motoboma</h2>
+
+      <button onClick={() => enviarComandoLED("ON")} className="btn-led-on">Encender Motobomba</button>
+      <button onClick={() => enviarComandoLED("OFF")} className="btn-led-off">Apagar Motobomba</button>
+    </div>
+
+    <div className="sensor-card">
+      <h2>Gráficas</h2>
+      <Line data={humedadData} />
+      <Line data={temperaturaData}  />
+    </div>
+  </div>
+);
 };
 
 export default InterfaceSensor;

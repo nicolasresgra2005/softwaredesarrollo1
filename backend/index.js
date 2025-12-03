@@ -26,7 +26,12 @@ app.use(express.json());
 // 🟩 Middleware para ver TODO lo que llega del frontend
 app.use((req, res, next) => {
   console.log(`➡️ ${req.method} ${req.url}`);
-  console.log("📥 Body recibido:", req.body);
+
+  // solo loguear body si es POST / PUT / PATCH
+  if (req.method !== "GET") {
+    console.log("📥 Body recibido:", req.body);
+  }
+
   next();
 });
 
