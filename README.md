@@ -1,16 +1,82 @@
-# React + Vite
+# Agro-Sense
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Agro-Sense es un sistema de monitoreo agrícola que combina hardware (Arduino Nano ESP32 + sensor DHT11) con una plataforma web desarrollada en **React**, **Node.js/Express** y **Supabase (PostgreSQL)**.  
+El sistema permite visualizar en tiempo real la humedad y temperatura de cultivos para una gestión más eficiente.
 
-Currently, two official plugins are available:
+## Hardware utilizado
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Arduino Nano ESP32**
+- **Sensor DHT11 (humedad y temperatura)**
+- Comunicación WiFi hacia un servidor local
+- Envío de datos hacia la base de datos en Supabase
 
-## React Compiler
+## Tecnologías del proyecto
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React + Vite** (frontend)
+- **Node.js + Express** (backend)
+- **Supabase (PostgreSQL)** como base de datos
+- **Arduino IoT** para captura de datos
 
-## Expanding the ESLint configuration
+## Acceso al sistema
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+El usuario accede a la plataforma mediante la web:
+
+1. Crear una cuenta  
+2. Iniciar sesión  
+3. Visualizar los datos ambientales en tiempo real
+
+## Estructura
+
+## Estructura del Proyecto
+
+```bash
+agro-sense/
+│
+├── backend/
+│   ├── config/
+│   │   └── db.js
+│   │
+│   ├── controllers/
+│   │   └── userController.js
+│   │
+│   ├── jobs/
+│   │   └── monitor.js
+│   │
+│   ├── routes/
+│   │
+│   ├── services/
+│   │
+│   ├── .env
+│   ├── index.js
+│   ├── package.json
+│   ├── package-lock.json
+│   └── node_modules/
+│
+├── public/
+│   └── vite.svg
+│
+├── src/
+│   ├── assets/
+│   │
+│   ├── backend/
+│   │
+│   └── pages/
+│       ├── ForgotPassword.css
+│       ├── ForgotPassword.jsx
+│       ├── header.css
+│       ├── header.jsx
+│       ├── Home.css
+│       ├── Home.jsx
+│       ├── InterfaceSensor.css
+│       ├── InterfaceSensor.jsx
+│       ├── Login.css
+│       ├── Login.jsx
+│       ├── Perfil.css
+│       └── Perfil.jsx
+│
+├── package.json
+└── node_modules/
+
+
+
+
